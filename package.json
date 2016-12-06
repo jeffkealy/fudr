@@ -1,0 +1,17 @@
+{
+  "name": "fudr",
+  "version": "1.0.0",
+  "description": "Choose your meal",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon server/app.js"
+  },
+  "author": "Jeff Kealy",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.1",
+    "path": "^0.12.7"
+  }
+}
