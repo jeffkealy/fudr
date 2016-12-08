@@ -1,11 +1,40 @@
 <div class="container" >
+  <!-- <md-card>
+    <md-card-title>
+        <md-card-title-text>
+          <h1>Search A Place To Add A Dish!</h1>
+        </md-card-title-text>
+      </md-card-title>
+    <md-card-content>
+      <div class="row">
+          <div>
+
+          <form>
+              <label for="restaurant">Restaurant: </label>
+              <input type="text" ng-model="ad.searchPlace.restaurant" id="restaurant" placeholder="Restaurant" />
+              <label for="location">Location: </label>
+              <input type="text" ng-model="ad.searchPlace.location" id="location" placeholder="Location" />
+              <md-button class="md-raised md-primary" ng-click="ad.searchPlaces()">Search Places</md-button>
+          </form>
+          </div>
+          <div layout="row" ng-repeat="place in ad.placesReturnedFromApi ">
+
+            <md-button ng-click=ad.clickedPlace(place) class="md-raised md-primary" >{{place.name}}
+              <p ng-model="place.formatted_address">{{place.address}}</p>
+            </md-button>
+
+          </div>
+      </div>
+    </md-card-content>
+  </md-card> -->
+
   <md-card>
     <div layout="column">
       <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">Add A Dish To The Site For:</span>
-            <span class="md-subhead">{{ad.placeData.placeObj.name}}</span>
-            <span class="md-subhead">{{ad.placeData.placeObj.formatted_address}}</span>
+            <span><h1>Add A Dish To The Site For:</h1></span>
+            <span class="md-headline">{{ad.placeData.placeObj.name}}</span>
+            <span class="md-subhead">{{ad.placeData.placeObj.address}} {{ad.placeData.placeObj.locality}}</span>
           <md-card-title-text>
       <md-card-title>
     </div>

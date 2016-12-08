@@ -1,21 +1,31 @@
 <div class="container" >
-    <h1>Search A Place To Add A Dish!</h1>
-    <div class="row">
-        <div class="col-md-12">
-        <form>
-            <label for="restaurant">Restaurant: </label>
-            <input type="text" ng-model="sd.searchPlace.restaurant" id="restaurant" placeholder="Restaurant" />
-            <label for="location">Location: </label>
-            <input type="text" ng-model="sd.searchPlace.location" id="location" placeholder="Location" />
-            <md-button class="md-raised md-primary" ng-click="sd.searchPlaces()">Search Places</md-button>
-        </form>
-        </div>
-        <div layout="row" ng-repeat="place in sd.placesReturnedFromApi ">
+  <md-card>
+    <md-card-title>
+        <md-card-title-text>
+          <h1>Search A Place To Add A Dish!</h1>
+        </md-card-title-text>
+      </md-card-title>
+    <md-card-content>
+      <div class="row">
+          <div>
 
-          <md-button ng-click=sd.clickedPlace(place) class="md-raised md-primary" >{{place.name}}
-            <p ng-model="place.formatted_address">{{place.formatted_address}}</p>
-          </md-button>
+          <form>
+              <label for="restaurant">Restaurant: </label>
+              <input type="text" ng-model="sd.searchPlace.restaurant" id="restaurant" placeholder="Restaurant" />
+              <label for="location">Location: </label>
+              <input type="text" ng-model="sd.searchPlace.location" id="location" placeholder="Location" />
+              <md-button class="md-raised md-primary" ng-click="sd.searchPlaces()">Search Places</md-button>
+          </form>
+          </div>
+          <div layout="row" ng-repeat="place in sd.placesReturnedFromApi ">
 
-        </div>
-    </div>
+            <md-button ng-click=sd.clickedPlace(place) class="md-raised md-primary" >{{place.name}}
+              <p ng-model="place.formatted_address">{{place.address}}</p>
+            </md-button>
+
+          </div>
+      </div>
+    </md-card-content>
+  </md-card>
+
 </div>

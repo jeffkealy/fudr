@@ -15,6 +15,7 @@ app.get('/', function(req, res){
 
 /** ---------- EXPRESS ROUTES ---------- **/
 app.use('/dishes', dishes);
+
 /** ---------- MONGOOSE CONNECTION HANDLING ---------- **/
 var databaseUri = 'mongodb://localhost:27017/sigma';
 mongoose.connect(databaseUri);

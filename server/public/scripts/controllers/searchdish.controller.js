@@ -7,38 +7,27 @@ app.controller('SearchController', ['$http', '$location', 'DataFactory', functio
 
 //get places from api request
 self.searchPlaces = function(){
-  var restaurantName = self.searchPlace.restaurant;
-  var searchLocation = self.searchPlace.location
-  var query = restaurantName;
-  query += '+in+';
-  query += searchLocation;
-
-  urlToPost = encodeURI(query);
-  self.searchPlace.url = urlToPost
-  console.log("object to send", self.searchPlace);
-  //request to get places
-  $http.get('/dishes/places/' + urlToPost)
+  var urlId = '?name=';
+  urlId += self.searchPlace.restaurant;
+  urlId += '&location=';
+  urlId += self.searchPlace.location;
+  $http.get('/dishes' + urlId)
     .then(function(response) {
-      console.log(response.data.results);
-      self.placesReturnedFromApi = response.data.results;
+      self.placesReturnedFromApi = response.data;
 
-    });
-
-  // $http.post('/dishes/places', self.searchPlace)
-  //   .then(function(response){
-  //     console.log("post finished");
-  //     getPlaces();
-  //
-  //   })
+  });
 
 }
 
+//slecet the place to add
 self.clickedPlace = function(place){
-  console.log(place);
+  console.log("clicked the place", place);
   DataFactory.placeObj = place;
+  $http.post('/dishes/restaurant', place)
+    .then(function(response){
+      $location.path('/adddish');
+    })
 
-
-  $location.path('/adddish');
 }
 
 }]);
