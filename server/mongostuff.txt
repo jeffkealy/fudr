@@ -16,7 +16,7 @@ restaurants.insert({
             sunday:	'9AM–2AM',
             }
     ,
-    dishimage: [
+    dish: [
               {
               name: 'Nachos',
               photourl: 'http://i.imgur.com/xx4JYJr.jpg',

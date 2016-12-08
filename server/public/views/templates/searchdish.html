@@ -1,0 +1,21 @@
+<div class="container" >
+    <h1>Search A Place To Add A Dish!</h1>
+    <div class="row">
+        <div class="col-md-12">
+        <form>
+            <label for="restaurant">Restaurant: </label>
+            <input type="text" ng-model="sd.searchPlace.restaurant" id="restaurant" placeholder="Restaurant" />
+            <label for="location">Location: </label>
+            <input type="text" ng-model="sd.searchPlace.location" id="location" placeholder="Location" />
+            <md-button class="md-raised md-primary" ng-click="sd.searchPlaces()">Search Places</md-button>
+        </form>
+        </div>
+        <div layout="row" ng-repeat="place in sd.placesReturnedFromApi ">
+
+          <md-button ng-click=sd.clickedPlace(place) class="md-raised md-primary" >{{place.name}}
+            <p ng-model="place.formatted_address">{{place.formatted_address}}</p>
+          </md-button>
+
+        </div>
+    </div>
+</div>

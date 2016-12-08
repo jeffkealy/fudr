@@ -7,10 +7,15 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'HomeController',
             controllerAs: 'hc'
         })
-        .when('/geocode', {
-            templateUrl: '/views/templates/home.html',
-            controller: 'GeocodeController',
-            controllerAs: 'GC'
+        .when('/searchdish', {
+            templateUrl: '/views/templates/searchdish.html',
+            controller: 'SearchController',
+            controllerAs: 'sd'
+        })
+        .when('/adddish', {
+            templateUrl: '/views/templates/adddish.html',
+            controller: 'AdddishController',
+            controllerAs: 'ad'
         })
         .otherwise({
             redirectTo: '/home'
