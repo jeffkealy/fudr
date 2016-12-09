@@ -1,60 +1,33 @@
 app.controller('AdddishController', ['$http', 'DataFactory', function($http, DataFactory){
   console.log("Adddish controller running");
   var self = this;
+
   self.placeData = DataFactory
+  self.placesReturnedFromMyDb = [];
   self.newDish = {
 
     dishName: "",
     photourl: "",
-    cuisinetype: [],
-    factual_id: self.placeData.placeObj
+    cuisinetype: self.selected ,
+    factual_id: ""
   };
-  self.cuisinetypes = ["African", "American", "Asian", "Breakfast", "Brunch"];
+  self.cuisinetypes = ["African", "American", "Asian", "Breakfast", "Brunch", "Caribbean", "Dessert", "Fast Food", "Greek", "Hot Dogs", "Ice Cream", "Indian", "Italian", "Mexican", "Pizza", "Sandwiches", "Shushi", "Seafood"];
   self.selected = [];
-  self.placesReturnedFromMyDb = [];
-  self.searchPlace = {}
+  self.searchedPlace = {}
 
-  //get places from my DB request
-  var urlId = '?name=';
-  urlId += self.searchPlace.restaurant;
+  //console.log("self.placeData", self.placeData.placeObj); //api restauarant info
 
-  console.log("urlid", urlId);
+  //Get restauarants from
   self.searchPlaces = function(){
-    console.log("search places clicked");
-    var urlId = '?name=';
-    urlId += self.searchPlace.restaurant;
-    console.log(urlId);
-    $http.get('/dishes/fromDb'+ urlId)
+    $http.get('/dishes/fromDb')
       .then(function(response) {
-        console.log(response.data);
         self.placesReturnedFromMyDb = response.data;
 
     });
-
   }
-
-  //selecet the place to add
-  self.clickedPlace = function(place){
-    console.log(place);
-    DataFactory.placeObj = place;
-    $http.post('/dishes/restaurant', place)
-      .then(function(response){
-        $location.path('/adddish');
-      })
-
-  }
-
-
-  console.log("self.newDish", self.newDish);
-  console.log("self.placeData", self.placeData.placeObj); //api restauarant info
-  console.log(DataFactory);
-  //self.newDish.dish[0].cuisinetype = "Brunch"
-
-
+  //toggle checkboxes
   self.toggle = function(cuisinetype, list){
-    console.log("cuisinetype", cuisinetype);
     var indx = list.indexOf(cuisinetype);
-      console.log("indx", indx);
         if (indx > -1) {
           list.splice(indx, 1);
         }else{
@@ -69,8 +42,26 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
   self.addDish = function(){
     self.newDish.cuisinetype = self.selected
     DataFactory
+    console.log("self.selectedPlace", self.placeData.placeObj);
+    self.newDish.factual_id = self.placeData.placeObj.factual_id
     console.log("new dish after click", self.newDish);
+    $http.post('dishes/dish', self.newDish)
+      .then(function(response){
+        console.log("added Dish");
+        self.newDish={};
+      })
   }
 
+
+
+
+
+    //selecet the place to add
+    self.clickedPlace = function(place){
+      console.log("clicked place", place);
+      DataFactory.placeObj = place;
+
+
+    }
 
 }]);

@@ -19,8 +19,9 @@
           </div>
           <div layout="row" ng-repeat="place in sd.placesReturnedFromApi ">
 
-            <md-button ng-click=sd.clickedPlace(place) class="md-raised md-primary" >{{place.name}}
-              <p ng-model="place.formatted_address">{{place.address}}</p>
+            <md-button ng-click=sd.clickedPlace(place) class="md-raised md-primary" >
+               <p>{{place.name}}</p> 
+              <p>{{place.address}}</p>
             </md-button>
 
           </div>

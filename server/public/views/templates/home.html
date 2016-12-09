@@ -1,30 +1,32 @@
 
 <div class="container" layout="row" layout-align="center">
 
-  <md-button ><h1>Naw</h1></md-button>
-<div class="card" layout="row" layout-align="center start">
-  <md-card>
-    <md-card-header>
-      <img ng-src="../../assets/hamburger.jpg" class="md-card-image" >
-    </md-card-header>
-    <md-card-title>
-      <md-button class="md-fab cardButton" aria-label="Favorite">
-        <md-icon class="material-icons">star_border</md-icon>
-      </md-button>
-      <md-card-title-text layout="row" layout-align="center" >
-        <!-- <div layout="row" layout-align="center center" layout-margin> -->
-          <span class="md-headline">Card with image</span>
-      </md-card-title-text>
-      <md-button class="md-fab cardButton"  aria-label="Info">
-        <md-icon class="material-icons">info_outline</md-icon>
-      </md-button>
-    </md-card-title>
-    <md-card-content layout="row" layout-align="center space-between" layout-padding="0">
+  <md-button ng-click="hc.nawButton()"><h1>Naw</h1></md-button>
+    <div class="card" layout="row" layout-align="center start">
+      <md-card class="md-whiteframe-13dp">
+        <md-card-header>
+          <img ng-src="{{hc.currentDish.photourl}}" class="md-card-image" >
+        </md-card-header>
+        <md-card-title>
+          <md-button class="md-fab md-primary" aria-label="Favorite">
+            <md-icon class="material-icons">star_border</md-icon>
+          </md-button>
+          <md-card-title-text layout="row" layout-align="center" >
+            <!-- <div layout="row" layout-align="center center" layout-margin> -->
+              <div layout="column">
+                <span class="md-headline">{{hc.currentRestaurant[0].name}}</span>
+              </div>
+          </md-card-title-text id="infoButton">
+          <md-button  class="md-fab md-primary"  ng-click="hc.infoButton($event)" aria-label="Info">
+            <md-icon class="material-icons">info_outline</md-icon>
+          </md-button>
+        </md-card-title>
+        <md-card-content layout="row" layout-align="center space-between" layout-padding="0">
 
 
-    </md-card-content>
-  </md-card>
-</div>
+        </md-card-content>
+      </md-card>
+  </div>
 
-  <md-button><h1>Yum!</h1></md-button>
+  <md-button ng-click="hc.yumButton()"><h1>Yum!</h1></md-button>
 </div>

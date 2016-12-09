@@ -17,6 +17,11 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'AdddishController',
             controllerAs: 'ad'
         })
+        // .when('/infopopup', {
+        //     templateUrl: '/views/templates/popups/infopopup.html',
+        //     controller: 'AdddishController',
+        //     controllerAs: 'ad'
+        // })
         .otherwise({
             redirectTo: '/home'
         });

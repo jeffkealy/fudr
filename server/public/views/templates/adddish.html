@@ -1,33 +1,4 @@
 <div class="container" >
-  <!-- <md-card>
-    <md-card-title>
-        <md-card-title-text>
-          <h1>Search A Place To Add A Dish!</h1>
-        </md-card-title-text>
-      </md-card-title>
-    <md-card-content>
-      <div class="row">
-          <div>
-
-          <form>
-              <label for="restaurant">Restaurant: </label>
-              <input type="text" ng-model="ad.searchPlace.restaurant" id="restaurant" placeholder="Restaurant" />
-              <label for="location">Location: </label>
-              <input type="text" ng-model="ad.searchPlace.location" id="location" placeholder="Location" />
-              <md-button class="md-raised md-primary" ng-click="ad.searchPlaces()">Search Places</md-button>
-          </form>
-          </div>
-          <div layout="row" ng-repeat="place in ad.placesReturnedFromApi ">
-
-            <md-button ng-click=ad.clickedPlace(place) class="md-raised md-primary" >{{place.name}}
-              <p ng-model="place.formatted_address">{{place.address}}</p>
-            </md-button>
-
-          </div>
-      </div>
-    </md-card-content>
-  </md-card> -->
-
   <md-card>
     <div layout="column">
       <md-card-title>
@@ -38,33 +9,57 @@
           <md-card-title-text>
       <md-card-title>
     </div>
-
-    <md-card-content>
-        <div layout="row" flex>
-          <form>
+    <md-card-content layout="column" flex>
+            <form >
               <label for="dishName">Dish Name: </label>
-                <input type="text" ng-model="ad.newDish.dishName" id="restaurant" />
+              <input type="text" ng-model="ad.newDish.dishName" id="restaurant" />
               <label for="photourl">Photo Url: </label>
-                <input type="text" ng-model="ad.newDish.photourl" id="photourl"  />
-              <md-button class="md-raised md-primary" ng-click="ad.addDish()">Add Dish</md-button>
-              <div layout="row" layout-wrap flex ng-repeat="cuisinetype in ad.cuisinetypes">
-                <md-checkbox ng-checked="ad.checkBoxes(cuisinetype, ad.selected)"
+              <input type="text" ng-model="ad.newDish.photourl" id="photourl"  />
+              <md-button class="md-raised md-primary md-hue-2" ng-click="ad.addDish()">Add Dish</md-button>
+              <div layout="row" layout-wrap md-scroll-y flex >
+                <md-checkbox flex="20" layout="row" ng-repeat="cuisinetype in ad.cuisinetypes" ng-checked="ad.checkBoxes(cuisinetype, ad.selected)"
                   ng-click="ad.toggle(cuisinetype, ad.selected)" aria-label="checkbox">
                   {{cuisinetype}}
                 </md-checkbox>
               </div>
           </form>
-        </div>
-        <!-- <div layout="row" ng-repeat="place in ad.placesReturnedFromApi ">
-          <md-button class="md-raised md-primary" ng-model= "place.name">{{place.name}}
-            <p ng-model="place.formatted_address">{{place.formatted_address}}</p>
-          </md-button>
-        </div> -->
     </md-card-content>
   </md-card>
+  <md-button class="md-raised md-primary md-hue-2" ng-click="ad.searchPlaces()">Search Places</md-button>
+  <div>
+    <md-button layout="row" ng-repeat="place in ad.placesReturnedFromMyDb | orderBy: 'name' " ng-click=ad.clickedPlace(place) class="md-raised md-primary" >
+      <p><b>{{place.name}}</b> : {{place.address}} : {{place.locality}} : {{place.postcode}}</p>
+    </md-button>
+  </div>
+</div>
 
+
+
+<!-- <md-card>
+  <md-card-title>
+      <md-card-title-text>
+        <h1>Search A Place To Add A Dish!</h1>
+      </md-card-title-text>
+    </md-card-title>
+  <md-card-content>
     <div class="row">
         <div>
+
+        <form>
+            <label for="restaurant">Restaurant: </label>
+            <input type="text" ng-model="ad.searchPlace.restaurant" id="restaurant" placeholder="Restaurant" />
+            <label for="location">Location: </label>
+            <input type="text" ng-model="ad.searchPlace.location" id="location" placeholder="Location" />
+            <md-button class="md-raised md-primary" ng-click="ad.searchPlaces()">Search Places</md-button>
+        </form>
+        </div>
+        <div layout="row" ng-repeat="place in ad.placesReturnedFromApi ">
+
+          <md-button ng-click=ad.clickedPlace(place) class="md-raised md-primary" >{{place.name}}
+            <p ng-model="place.formatted_address">{{place.address}}</p>
+          </md-button>
+
         </div>
     </div>
-</div>
+  </md-card-content>
+</md-card> -->

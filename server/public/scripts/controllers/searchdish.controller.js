@@ -25,9 +25,9 @@ self.clickedPlace = function(place){
   DataFactory.placeObj = place;
   $http.post('/dishes/restaurant', place)
     .then(function(response){
-      $location.path('/adddish');
-    })
 
+    })
+  $location.path('/adddish');  
 }
 
 }]);
