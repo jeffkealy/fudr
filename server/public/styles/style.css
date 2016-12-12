@@ -6,7 +6,7 @@ body {
 }
 #toolbar{
   background-color: #db3236;
-  text-align: center;
+
 }
 #toolbar h1{
   font-size: 84px;
@@ -17,11 +17,19 @@ body {
   padding: 0;
   margin: 0;
 }
+#toolbarName {
+  padding: 8px;
+  margin: 0;
+
+}
+#toolbarMenu{
+  margin-bottom: 15px;
+}
+#md-toolbar-tools{
+  height: 40px;
+}
 span{
   text-align: center;
-}
-.md-icon-button{
-  padding: 0 6px 0 6px;
 }
 .cardButton{
   background-color: white;

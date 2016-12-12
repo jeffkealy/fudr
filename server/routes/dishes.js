@@ -12,6 +12,7 @@ var factual = new Factual(process.env.OAuth_KEY, process.env.OAuth_Secret);
 //Get for searchdish page
 router.get('/', function (req, results){
 //request to Api
+
   factual.get('/t/places-us', {q:req.query.name, filters:{"locality":req.query.location}}, function (error, res) {
       results.send(res.data);
   });

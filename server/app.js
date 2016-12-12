@@ -1,34 +1,38 @@
 var express = require('express');
+var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var app = express();
 var portDecision = process.env.PORT || 3000;
 var dishes = require('./routes/dishes');
 var mongoose = require('mongoose');
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+var mongoConnection = require('./routes/modules/mongo-connection.js');
+var privateData = require('./routes/auth-data');
+var decoder = require('./routes/modules/decoder.js');
 
 app.get('/', function(req, res){
   res.sendFile(path.resolve('./server/public/views/index.html'));
 });
+app.use(express.static('server/public'));
 
-/** ---------- EXPRESS ROUTES ---------- **/
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
 app.use('/dishes', dishes);
 
+app.use(decoder.token);
+
+
+
+/** ---------- EXPRESS ROUTES ---------- **/
+
+app.use("/privateData", privateData);
+
+
+
 /** ---------- MONGOOSE CONNECTION HANDLING ---------- **/
-var databaseUri = 'mongodb://localhost:27017/sigma';
-mongoose.connect(databaseUri);
+mongoConnection.connect();
 
-mongoose.connection.on('connected', function() {
-  console.log('mongoose connected to ', databaseUri);
-});
 
-mongoose.connection.on('error', function(err) {
-  console.log('mongoose connection error: ', err);
-});
-
-app.use(express.static('server/public'));
 
 /** ---------- START SERVER ---------- **/
 app.listen(portDecision, function(){

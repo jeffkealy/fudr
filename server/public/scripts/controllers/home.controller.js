@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', function($http, $mdDialog, DataFactory){
+app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebaseAuth', function($http, $mdDialog, DataFactory, $firebaseAuth){
   console.log("home controller is up");
   var key = 'AIzaSyBiMubXEKljXk7iYHzhz76eeOwMgcaIpKM'
   var self = this;
@@ -7,8 +7,36 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', function(
   self.currentRestaurant = {};
   self.currentDish = {};
   self.randomNumber = 0;
+  var auth = $firebaseAuth();
 
+  auth.$onAuthStateChanged(function(firebaseUser){
+    // firebaseUser will be null if not logged in
+    self.currentUser = firebaseUser;
+    if (firebaseUser == null) {
+      console.log("Not logged in yet");
+      DataFactory.firebaseUserName.displayName = "Log In"
+    } else {
+      DataFactory.firebaseUserName.displayName = self.currentUser.displayName;
+    }
+    if(firebaseUser) {
+      // This is where we make our call to our server
+      firebaseUser.getToken().then(function(idToken){
+        $http({
+          method: 'GET',
+          url: '/privateData',
+          headers: {
+            id_token: idToken
+          }
+        }).then(function(response){
+          self.secretData = response.data;
+        });
+      });
+    } else {
+      console.log('Not logged in or not authorized.');
+      self.secretData = [];
+    }
 
+  });
 
 
   self.getRandomDish = function() {

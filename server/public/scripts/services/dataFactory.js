@@ -3,9 +3,10 @@ app.factory('DataFactory', ['$http',function($http) {
   var placeObj = {
     place: {},
     yums: [],
-    currentRestaurant: []
+    currentRestaurant: [],
+    firebaseUserName: {}
   };
-  console.log("DATAFplaceObj.currentRestaurant", placeObj.currentRestaurant);
+  
   return placeObj;
 
 }]);
