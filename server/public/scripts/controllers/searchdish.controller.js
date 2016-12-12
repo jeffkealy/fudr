@@ -21,13 +21,14 @@ self.searchPlaces = function(){
 
 //slecet the place to add
 self.clickedPlace = function(place){
-  console.log("clicked the place", place);
-  DataFactory.placeObj = place;
+  
+  DataFactory.place = place;
+  console.log("clicked the place", DataFactory.place);
   $http.post('/dishes/restaurant', place)
     .then(function(response){
 
     })
-  $location.path('/adddish');  
+  $location.path('/adddish');
 }
 
 }]);

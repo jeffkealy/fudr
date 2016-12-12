@@ -1,8 +1,6 @@
 app.controller('AdddishController', ['$http', 'DataFactory', function($http, DataFactory){
   console.log("Adddish controller running");
   var self = this;
-
-  self.placeData = DataFactory
   self.placesReturnedFromMyDb = [];
   self.newDish = {
 
@@ -14,8 +12,6 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
   self.cuisinetypes = ["African", "American", "Asian", "Breakfast", "Brunch", "Caribbean", "Dessert", "Fast Food", "Greek", "Hot Dogs", "Ice Cream", "Indian", "Italian", "Mexican", "Pizza", "Sandwiches", "Shushi", "Seafood"];
   self.selected = [];
   self.searchedPlace = {}
-
-  //console.log("self.placeData", self.placeData.placeObj); //api restauarant info
 
   //Get restauarants from
   self.searchPlaces = function(){
@@ -41,9 +37,7 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
 
   self.addDish = function(){
     self.newDish.cuisinetype = self.selected
-    DataFactory
-    console.log("self.selectedPlace", self.placeData.placeObj);
-    self.newDish.factual_id = self.placeData.placeObj.factual_id
+    self.newDish.factual_id = DataFactory.place.factual_id
     console.log("new dish after click", self.newDish);
     $http.post('dishes/dish', self.newDish)
       .then(function(response){
@@ -53,13 +47,10 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
   }
 
 
-
-
-
     //selecet the place to add
     self.clickedPlace = function(place){
       console.log("clicked place", place);
-      DataFactory.placeObj = place;
+      DataFactory.place = place;
 
 
     }

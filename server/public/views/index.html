@@ -17,11 +17,30 @@
     <script type="text/javascript" src="/scripts/controllers/home.controller.js"></script>
     <script type="text/javascript" src="/scripts/controllers/adddish.controller.js"></script>
     <script type="text/javascript" src="/scripts/controllers/searchdish.controller.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/popups/info.popup.controller.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/toolbar.controller.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/popups/menu.controller.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/popups/yumreviewpopup.controller.js"></script>
+
   </head>
   <body ng-app="myApp">
-    <md-toolbar class="md-tall" id="toolbar">
-      <h1><a href="http://localhost:3000/#/home/home">Füdr</a></a></h1>
-      <h5>Where To Go For Dinner</h5>
+    <md-toolbar class="md-tall" id="toolbar" layout="row" ng-controller="ToolbarController as tc">
+      <div class="md-toolbar-tools" layout="column" layout-align="start">
+          <div layout="column">
+            <h1><a href="http://localhost:3000/#/home/home">Füdr</a></a></h1>
+            <h5>Where To Go For Dinner</h5>
+          </div>
+      </div>
+      <div layout="row" layout-align="center center">
+        <md-button ng-click="tc.menuClick()" layout="row" layout-align="end center" class="md-icon-button" >
+          <md-icon class="material-icons" aria-lable="Menu">menu</md-icon>
+        </md-button>
+      </div>
+
+
+
+
+
     </md-toolbar>
     <md-content ng-view></md-content>
   </body>

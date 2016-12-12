@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$http', '$mdDialog', function($http, $mdDialog){
+app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', function($http, $mdDialog, DataFactory){
   console.log("home controller is up");
   var key = 'AIzaSyBiMubXEKljXk7iYHzhz76eeOwMgcaIpKM'
   var self = this;
@@ -7,6 +7,8 @@ app.controller('HomeController', ['$http', '$mdDialog', function($http, $mdDialo
   self.currentRestaurant = {};
   self.currentDish = {};
   self.randomNumber = 0;
+
+
 
 
   self.getRandomDish = function() {
@@ -30,48 +32,68 @@ app.controller('HomeController', ['$http', '$mdDialog', function($http, $mdDialo
     $http.get('/dishes/currentRestaurantfromDb/' + self.currentDish.factual_id )
       .then(function(response) {
         self.currentRestaurant = response.data;
+        DataFactory.currentRestaurant = self.currentRestaurant[0];
+        self.currentDish.currentRestaurant = self.currentRestaurant;
+
+        console.log("restaurant attached to Dish", self.currentDish.currentRestaurant);
+
 
 
     });
   }
   //Yum button clicked
   self.yumButton = function(){
-    self.yums.push(self.currentDish)
-    self.dishes.splice(self.randomNumber,1)
-    console.log("dish to remove", self.currentDish);
-    console.log("current dishes", self.dishes);
-    console.log("Yums", self.yums);
-    self.randomNumber = randomNumberGen(0, self.dishes.length-1)
-    self.currentDish = self.dishes[self.randomNumber];
-
-
-
-
+    console.log("self.dishes.length", self.dishes.length);
+    if(self.dishes.length > 0 ){
+      self.yums.push(self.currentDish)
+      self.dishes.splice(self.randomNumber,1)
+      self.randomNumber = randomNumberGen(0, self.dishes.length-1)
+      self.currentDish = self.dishes[self.randomNumber];
+      DataFactory.yums = self.yums;
+      self.getRestaurant();
+      console.log("current dishes", self.dishes);
+      console.log("Yums", self.yums);
+    }
   }
   //Naw button clicked
   self.nawButton = function(){
-    console.log("clicked the Naw button");
-    self.dishes.splice(self.randomNumber,1)
-    self.randomNumber = randomNumberGen(0, self.dishes.length-1)
-    self.currentDish = self.dishes[self.randomNumber];
-    console.log("current dishes", self.dishes);
+    if (self.dishes.length > 0 ){
+      console.log("clicked the Naw button");
+      self.dishes.splice(self.randomNumber,1)
+      self.randomNumber = randomNumberGen(0, self.dishes.length-1)
+      self.currentDish = self.dishes[self.randomNumber];
+      self.getRestaurant();
+      console.log("dish to remove", self.currentDish);
+    } else {
+
+    }
 
   }
+
+  //info pop up
   self.infoButton = function(ev){
-    console.log("current restaurant", self.currentRestaurant);
-    $mdDialog.show(
-      $mdDialog.alert()
-        .parent(angular.element(document.querySelector('#infoButton')))
-        .clickOutsideToClose(true)
-        .title(self.currentDish.dishName + " From " + self.currentRestaurant[0].name)
-        .textContent(self.currentRestaurant[0].locality + ", " +self.currentRestaurant[0].region+
-                      " : Open " + self.currentRestaurant[0].hours_display)
-        .ariaLabel('Offscreen Demo')
-        .ok('Close')
-        .targetEvent(ev)
-    );
+    $mdDialog.show({
+      controller: 'InfopopupController as ip',
+      templateUrl: '../../views/templates/popups/infopopup.html',
+
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+    });
   }
 
+  //Yum review pop up
+  self.yumReviewButton = function(ev){
+    console.log("current restaurant", self.currentRestaurant);
+    $mdDialog.show({
+      controller: 'YumreviewpopupController as yrp',
+      templateUrl: '../../views/templates/popups/yumreviewpopup.html',
+
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+    });
+  }
   self.getRandomDish();
 
   function randomNumberGen(min, max){

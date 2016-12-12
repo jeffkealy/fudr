@@ -1,0 +1,36 @@
+<md-dialog aria-label="Mango (Fruit)">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools popUpHeaders">
+        <h2>Füdr</h2>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content >
+      <div layout="column" layout-align="center center">
+        <div class="md-dialog-content"><u><h2>Here's The Yums You Selected</h2> </u>
+        </div>
+        <md-card ng-repeat="yum in yrp.yums"  class="md-dialog-content md-whiteframe-13dp layout="column" layout-align="center center" >
+          <div  class="homeImage">
+            <img ng-src="{{yum.photourl}}" class="md-card-image">
+          </div>
+          <div>
+            <span class="md-headline"><p>{{yum.dishName}}</p> <p>at</p>  <h2>{{yum.currentRestaurant[0].name}}</h2></span>
+            <p>{{yum.currentRestaurant[0].address}} {{yum.currentRestaurant[0].locality}}, {{yum.currentRestaurant[0].region}} {{yum.currentRestaurant[0].postcode}}</p>
+            <p>{{yum.currentRestaurant[0].tel}}</p>
+            <p>{{yum.currentRestaurant[0].hours_display}}</p>
+          </div>
+          <md-button class="md-fab md-primary" aria-label="Favorite">
+            <md-icon class="material-icons">star_border</md-icon>
+          </md-button>
+        </md-card>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="column" >
+      <md-button class="md-raised md-primary" ng-click="yrp.cancel()">
+        Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
