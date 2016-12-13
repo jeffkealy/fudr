@@ -9,6 +9,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
   self.randomNumber = 0;
   var auth = $firebaseAuth();
 
+
   auth.$onAuthStateChanged(function(firebaseUser){
     // firebaseUser will be null if not logged in
     self.currentUser = firebaseUser;
@@ -29,6 +30,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
           }
         }).then(function(response){
           self.secretData = response.data;
+
         });
       });
     } else {
@@ -47,6 +49,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
         self.dishes = response.data;
           self.randomNumber = randomNumberGen(0, self.dishes.length-1)
           self.currentDish = self.dishes[self.randomNumber];
+          DataFactory.dishes = self.dishes;
           self.getRestaurant();
 
 
@@ -108,6 +111,83 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
       clickOutsideToClose:true,
       fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
     });
+  }
+
+  //Add/remove favorite button
+  self.addFavoriteButton = function(){
+    favorite = {
+      currentDishId: self.currentDish._id,
+      currentUserEmail: self.currentUser.email
+    }
+    if(self.currentUser) {
+      self.currentUser.getToken().then(function(idToken){
+        $http({
+          method: 'GET',
+          url: '/privateData',
+          headers: {
+            id_token: idToken
+          }
+        }).then(function(response){
+          console.log("self.favorite", favorite);
+          $http({
+            method: 'PUT',
+            url: "/privateData/addfavorite",
+            headers: {
+              id_token: idToken
+            },
+            data: favorite
+          }).then(function(response){
+              console.log("added Favorite");
+
+            })
+        });
+      });
+    } else {
+      console.log('Not logged in or not authorized.');
+      self.secretData = [];
+    }
+
+  }
+
+  //list favorites button
+  self.favoritesButton = function(ev){
+    if(self.currentUser) {
+      self.currentUser.getToken().then(function(idToken){
+        $http({
+          method: 'GET',
+          url: '/privateData',
+          headers: {
+            id_token: idToken
+          }
+        }).then(function(response){
+          $http({
+            method: 'GET',
+            url: "/privateData/favorites",
+            headers: {
+              id_token: idToken,
+              email: self.currentUser.email
+            }
+          }).then(function(response){
+
+              DataFactory.favorites = response.data;
+              console.log("Got favorites. response: ", DataFactory.favorites);
+              console.log(DataFactory.dishes);
+              $mdDialog.show({
+                controller: 'FavoritespopupController as fp',
+                templateUrl: '../../views/templates/popups/favoritespopup.html',
+                targetEvent: ev,
+                clickOutsideToClose:true,
+                fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+              });
+
+            })
+        });
+      });
+    } else {
+      console.log('Not logged in or not authorized.');
+      self.secretData = [];
+    }
+
   }
 
   //Yum review pop up

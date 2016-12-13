@@ -28,8 +28,20 @@ body {
 #md-toolbar-tools{
   height: 40px;
 }
+#MenuToolbar{
+  background-color: #db3236;
+  color: white;
+}
 span{
   text-align: center;
+}
+md-bottom-sheet{
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+  border: 0;
+
+
 }
 .cardButton{
   background-color: white;

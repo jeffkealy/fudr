@@ -11,7 +11,7 @@ router.get("/", function(req, res){
       console.log('Error COMPLETING clearanceLevel query task', err);
       res.sendStatus(500);
     } else {
-      console.log(user);
+      console.log("requested User", user);
       if(user == null) {
         // If the user is not in the database, return a forbidden error status
         console.log('No user found with that email. Have you added this person to the database? Email: ', req.decodedToken.email);
@@ -41,7 +41,7 @@ router.post("/", function(req, res){
       console.log('Error COMPLETING clearanceLevel query task', err);
       res.sendStatus(500);
     } else {
-      console.log(user);
+      console.log("requested User", user);
       if(user == null) {
         // If the user is not in the database, return a forbidden error status
         console.log('No user found with that email. Have you added this person to the database? Email: ', req.decodedToken.email);
@@ -65,5 +65,33 @@ router.post("/", function(req, res){
     }
   });
 });
+
+router.put('/addFavorite/', function(req, res){
+  console.log("req.body", req.body);
+  var conditions = { email: req.body.currentUserEmail};
+  var update = { $addToSet: { favorites: req.body.currentDishId } };
+  var options = {upsert: true};
+  User.findOneAndUpdate(conditions, update, function(err, data) {
+      if(err) {
+        console.log('Put ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+  })
+})
+
+router.get('/favorites/', function(req, res){
+  var query = { email: req.headers.email};
+  User.findOne(query, function(err, data) {
+      if(err) {
+        console.log('Put ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.send(data);
+      }
+  })
+})
+
 
 module.exports = router;

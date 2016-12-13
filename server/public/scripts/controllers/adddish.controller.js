@@ -9,9 +9,10 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
     cuisinetype: self.selected ,
     factual_id: ""
   };
-  self.cuisinetypes = ["African", "American", "Asian", "Breakfast", "Brunch", "Caribbean", "Dessert", "Fast Food", "Greek", "Hot Dogs", "Ice Cream", "Indian", "Italian", "Mexican", "Pizza", "Sandwiches", "Shushi", "Seafood"];
+  self.cuisinetypes = ["African", "American", "Asian", "Brunch", "Caribbean", "Dessert", "Fast Food", "French", "Greek", "Hot Dogs", "Ice Cream", "Indian", "Italian", "Latin American", "Mexican", "Pizza", "Sandwiches", "Seafood", "Shushi" , "Spanish"];
   self.selected = [];
   self.searchedPlace = {}
+
 
   //Get restauarants from
   self.searchPlaces = function(){
@@ -49,8 +50,10 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
 
     //selecet the place to add
     self.clickedPlace = function(place){
-      console.log("clicked place", place);
+
       DataFactory.place = place;
+      self.placeData = DataFactory.place;
+      console.log("clicked place", self.placeData);
 
 
     }

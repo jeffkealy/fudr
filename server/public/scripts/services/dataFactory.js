@@ -4,9 +4,11 @@ app.factory('DataFactory', ['$http',function($http) {
     place: {},
     yums: [],
     currentRestaurant: [],
-    firebaseUserName: {}
+    firebaseUserName: {},
+    dishes: [],
+    favorites: []
   };
-  
+
   return placeObj;
 
 }]);

@@ -1,9 +1,12 @@
-<md-bottom-sheet ng-controller="FirebaseController as fbc">
-  Füdr
-  <md-subheader>
+<md-bottom-sheet >
+  <div id="MenuToolbar">
+    Füdr
+  </div>
+
+  <md-subheader >
     Menu
     <md-list>
-      <div>
+      <div ng-controller="FirebaseController as fbc">
         <md-item >
           <md-button ng-click="fbc.logIn()" class="md-primary md-raised">
             Log In
@@ -14,10 +17,17 @@
             Log Out
           </md-button>
         </md-item>
-
       </div>
+      <div ng-controller="HomeController as hc">
+        <md-item layout="row" >
+          <md-button ng-click="hc.favoritesButton($event)" layout="row" class="md-primary md-raised" >
+            Favorites
+          </md-button>
+        </md-item>
+      </div>
+
     </md-list>
 
   </md-subheader>
-    <p>creator is jeff kealy</p>
+  </div>
 </md-bottom-sheet>

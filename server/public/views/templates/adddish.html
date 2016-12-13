@@ -4,8 +4,8 @@
       <md-card-title>
           <md-card-title-text>
             <span><h1>Add A Dish To The Site For:</h1></span>
-            <span class="md-headline">{{ad.placeData.placeObj.name}}</span>
-            <span class="md-subhead">{{ad.placeData.placeObj.address}} {{ad.placeData.placeObj.locality}}</span>
+            <span class="md-headline">{{ad.placeData.name}}</span>
+            <span class="md-subhead">{{ad.placeData.address}} {{ad.placeData.placeObj.locality}}</span>
           <md-card-title-text>
       <md-card-title>
     </div>
@@ -15,7 +15,7 @@
               <input type="text" ng-model="ad.newDish.dishName" id="restaurant" />
               <label for="photourl">Photo Url: </label>
               <input type="text" ng-model="ad.newDish.photourl" id="photourl"  />
-              <md-button class="md-raised md-primary md-hue-2" ng-click="ad.addDish()">Add Dish</md-button>
+              <md-button class="md-raised md-primary md-hue-2" ng-click="ad.addDish()">Add Dish For {{ad.placeData.name}}</md-button>
               <div layout="row" layout-wrap md-scroll-y flex >
                 <md-checkbox flex="20" layout="row" ng-repeat="cuisinetype in ad.cuisinetypes" ng-checked="ad.checkBoxes(cuisinetype, ad.selected)"
                   ng-click="ad.toggle(cuisinetype, ad.selected)" aria-label="checkbox">
