@@ -5,7 +5,11 @@ var Restaurant = require('../models/restaurantSchema');
 var Dish = require('../models/dishSchema');
 var https = require('https');
 var Factual = require('factual-api');
-require('dotenv').config();
+
+if (process.env.OAuth_KEY != undefined) {
+  require('dotenv').config();
+}
+
 var factual = new Factual(process.env.OAuth_KEY, process.env.OAuth_Secret);
 
 
