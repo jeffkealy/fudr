@@ -1,7 +1,14 @@
 var admin = require("firebase-admin");
+var firebaseServiceAccount = "/Users/jeffkealy/Documents/Prime/Fudr/server/firebase-service-account.json";
+
+if (process.env.FIREBASE != undefined) {
+  firebaseServiceAccount = process.env.FIREBASE
+} else {
+  firebaseServiceAccount = "/Users/jeffkealy/Documents/Prime/Fudr/server/firebase-service-account.json";
+}
 
 admin.initializeApp({
-  credential: admin.credential.cert("/Users/jeffkealy/Documents/Prime/Fudr/server/firebase-service-account.json"),
+  credential: admin.credential.cert(firebaseServiceAccount),
   databaseURL: "https://fudr-26af4.firebaseio.com" // replace this line with your URL
 });
 
