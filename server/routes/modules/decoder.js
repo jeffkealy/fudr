@@ -1,12 +1,5 @@
 var admin = require("firebase-admin");
 var firebaseServiceAccount = "";
-
-if (process.env.project_id != undefined) {
-  firebaseServiceAccount = firebaseServices
-} else {
-  firebaseServiceAccount = "/Users/jeffkealy/Documents/Prime/Fudr/server/firebase-service-account.json";
-}
-
 var firebaseServices = {
   "type": "service_account",
   "project_id": process.env.project_id,
@@ -20,6 +13,14 @@ var firebaseServices = {
   "client_x509_cert_url": process.env.client_x509_cert_url
 }
 
+if (process.env.project_id != undefined) {
+  firebaseServiceAccount = firebaseServices
+} else {
+  firebaseServiceAccount = "/Users/jeffkealy/Documents/Prime/Fudr/server/firebase-service-account.json";
+}
+
+
+console.log(firebaseServiceAccount);
 admin.initializeApp({
   credential: admin.credential.cert(firebaseServiceAccount),
   databaseURL: "https://fudr-26af4.firebaseio.com" // replace this line with your URL
