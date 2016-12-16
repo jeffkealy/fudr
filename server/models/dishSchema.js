@@ -8,7 +8,8 @@ var dishSchema = new Schema({
     dishName: String,
     photourl: String,
     cuisinetype:[],
-    factual_id: String
+    factual_id: String,
+    restaurant_id: String
 
 
 });

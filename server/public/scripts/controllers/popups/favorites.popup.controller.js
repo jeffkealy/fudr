@@ -12,11 +12,24 @@ app.controller('FavoritespopupController', ['$http', '$mdDialog', 'DataFactory',
     }
 
   }
-  
+
   console.log("DataFactory Favorites", self.favorites);
   console.log("DataFactory dishes", self.dishes);
   console.log("DataFactory favoriteDishes", self.favoriteDishes);
   // console.log("favorite Button Object", self.dishes);
+
+  //info pop up
+  self.infoButton = function(ev){
+    $mdDialog.show({
+      controller: 'InfopopupController as ip',
+      templateUrl: '../../views/templates/popups/infopopup.html',
+
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+    });
+  }
+
   self.cancel = function() {
     $mdDialog.cancel();
   };

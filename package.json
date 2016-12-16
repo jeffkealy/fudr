@@ -1,5 +1,5 @@
 {
-  "name": "fudr",
+  "name": "Fudr",
   "version": "1.0.0",
   "description": "Choose your meal",
   "main": "index.js",
@@ -13,6 +13,7 @@
     "body-parser": "^1.15.2",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
+    "factual-api": "^1.0.7",
     "firebase-admin": "^4.0.4",
     "mongoose": "^4.7.1",
     "path": "^0.12.7"

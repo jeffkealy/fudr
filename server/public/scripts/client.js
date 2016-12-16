@@ -10,6 +10,7 @@ app.config(['$routeProvider', function($routeProvider) {
         .when('/searchdish', {
             templateUrl: '/views/templates/searchdish.html',
             controller: 'SearchController',
+            //resolve: to check their level.  search: $routeProvider, resolve
             controllerAs: 'sd'
         })
         .when('/adddish', {

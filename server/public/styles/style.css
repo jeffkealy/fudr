@@ -4,6 +4,14 @@
 body {
   font-family: 'Varela Round', sans-serif;
 }
+
+#homeCardTitle{
+  padding: 0;
+}
+
+#homeCard{
+
+}
 #toolbar{
   background-color: #db3236;
 
@@ -43,6 +51,19 @@ md-bottom-sheet{
 
 
 }
+.checkBox{
+  vertical-align: top;
+}
+.checkBoxesGroup{
+  padding-left: 20px;
+}
+.md-button.md-primary.md-fab.starButton{
+  background-color: #edc741;
+}
+.md-headline{
+  font-size: 16px;
+}
+
 .cardButton{
   background-color: white;
 }

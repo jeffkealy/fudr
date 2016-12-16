@@ -16,9 +16,11 @@
           </div>
           <div>
             <span class="md-headline"><p>{{yum.dishName}}</p> <p>at</p>  <h2>{{yum.currentRestaurant[0].name}}</h2></span>
-            <p>{{yum.currentRestaurant[0].address}} {{yum.currentRestaurant[0].locality}}, {{yum.currentRestaurant[0].region}} {{yum.currentRestaurant[0].postcode}}</p>
-            <p>{{yum.currentRestaurant[0].tel}}</p>
-            <p>{{yum.currentRestaurant[0].hours_display}}</p>
+            <div layout="column">
+              <span class="md-subhead">{{yum.currentRestaurant[0].address}} {{yum.currentRestaurant[0].locality}}, {{yum.currentRestaurant[0].region}} {{yum.currentRestaurant[0].postcode}}</span>
+              <span class="md-subhead">{{yum.currentRestaurant[0].tel}}</span>
+              <span class="md-subhead">{{yum.currentRestaurant[0].hours_display}}</span>
+            </div>
           </div>
           <md-button class="md-fab md-primary" aria-label="Favorite">
             <md-icon class="material-icons">star_border</md-icon>

@@ -7,12 +7,13 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
     dishName: "",
     photourl: "",
     cuisinetype: self.selected ,
-    factual_id: ""
+    factual_id: "",
+    restaurant_id: ""
   };
   self.cuisinetypes = ["African", "American", "Asian", "Brunch", "Caribbean", "Dessert", "Fast Food", "French", "Greek", "Hot Dogs", "Ice Cream", "Indian", "Italian", "Latin American", "Mexican", "Pizza", "Sandwiches", "Seafood", "Shushi" , "Spanish"];
   self.selected = [];
   self.searchedPlace = {}
-
+  self.placeData = DataFactory.place
 
   //Get restauarants from
   self.searchPlaces = function(){
@@ -38,8 +39,10 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
 
   self.addDish = function(){
     self.newDish.cuisinetype = self.selected
-    self.newDish.factual_id = DataFactory.place.factual_id
+    self.newDish.factual_id = DataFactory.place.factual_id;
+    self.newDish.restaurant_id = DataFactory.place._id;
     console.log("new dish after click", self.newDish);
+    console.log("you stopped the post call because you need to fix restaurant_id");
     $http.post('dishes/dish', self.newDish)
       .then(function(response){
         console.log("added Dish");

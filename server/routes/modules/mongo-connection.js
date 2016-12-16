@@ -1,5 +1,16 @@
 var mongoose = require('mongoose');
-var databaseUri = 'mongodb://localhost:27017/sigma';
+//var databaseUri = 'mongodb://localhost:27017/Fudr';
+
+var databaseUri = '';
+// process.env.MONGODB_URI will only be defined if you
+// are running on Heroku
+if(process.env.MONGODB_URI != undefined) {
+    // use the string value of the environment variable
+    databaseUri = process.env.MONGODB_URI;
+} else {
+    // use the local database server
+    databaseUri = 'mongodb://localhost:27017/Fudr';
+}
 
 var connectToMongoDatabase = function() {
   mongoose.connect(databaseUri);

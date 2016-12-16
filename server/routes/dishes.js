@@ -13,7 +13,7 @@ var factual = new Factual(process.env.OAuth_KEY, process.env.OAuth_Secret);
 router.get('/', function (req, results){
 //request to Api
 
-  factual.get('/t/places-us', {q:req.query.name, filters:{"locality":req.query.location}}, function (error, res) {
+  factual.get('/t/restaurants-us', {q:req.query.name, filters:{"locality":req.query.location}}, function (error, res) {
       results.send(res.data);
   });
 
@@ -78,7 +78,7 @@ router.get('/fromDb', function(req, res) {
 
 // search my DB for current restaurants
 router.get('/currentRestaurantfromDb/:id', function(req, res) {
-  Restaurant.find({factual_id: req.params.id}, function(err, restaurant) {
+  Restaurant.find({_id: req.params.id}, function(err, restaurant) {
     if(err) {
       console.log('Get ERR: ', err);
       res.sendStatus(500);

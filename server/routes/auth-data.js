@@ -66,6 +66,19 @@ router.post("/", function(req, res){
   });
 });
 
+
+router.get('/favorites/', function(req, res){
+  var query = { email: req.headers.email};
+  User.findOne(query, function(err, data) {
+      if(err) {
+        console.log('Put ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.send(data);
+      }
+  })
+})
+
 router.put('/addFavorite/', function(req, res){
   console.log("req.body", req.body);
   var conditions = { email: req.body.currentUserEmail};
@@ -81,17 +94,20 @@ router.put('/addFavorite/', function(req, res){
   })
 })
 
-router.get('/favorites/', function(req, res){
-  var query = { email: req.headers.email};
-  User.findOne(query, function(err, data) {
+router.delete('/removeFavorite/', function(req, res){
+  console.log("req.headers.dish_id", req.headers.dish_id);
+  console.log("req.headers.user_email", req.headers.user_email);
+  var conditions = { email: req.headers.user_email};
+  var update = { $pull: { favorites: req.headers.dish_id } };
+  var options = {upsert: true};
+  User.findOneAndUpdate(conditions, update, function(err, data) {
       if(err) {
         console.log('Put ERR: ', err);
         res.sendStatus(500);
       } else {
-        res.send(data);
+        res.sendStatus(200);
       }
   })
 })
-
 
 module.exports = router;

@@ -1,5 +1,4 @@
 app.controller('SearchController', ['$http', '$location', 'DataFactory', function($http, $location, DataFactory){
-  console.log("Search controller running");
   var self = this;
   self.placesReturnedFromApi = [];
   self.searchPlace = {}
@@ -21,12 +20,11 @@ self.searchPlaces = function(){
 
 //slecet the place to add
 self.clickedPlace = function(place){
-  
   DataFactory.place = place;
   console.log("clicked the place", DataFactory.place);
   $http.post('/dishes/restaurant', place)
     .then(function(response){
-
+      console.log("error response", response);
     })
   $location.path('/adddish');
 }
