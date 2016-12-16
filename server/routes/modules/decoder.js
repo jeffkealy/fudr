@@ -1,8 +1,8 @@
 var admin = require("firebase-admin");
 var firebaseServiceAccount = "";
 
-if (process.env.FIREBASE != undefined) {
-  firebaseServiceAccount = admin.credential.cert
+if (process.env.project_id != undefined) {
+  firebaseServiceAccount = firebaseServices
 } else {
   firebaseServiceAccount = "/Users/jeffkealy/Documents/Prime/Fudr/server/firebase-service-account.json";
 }
