@@ -11,7 +11,7 @@ router.get("/", function(req, res){
       console.log('Error COMPLETING clearanceLevel query task', err);
       res.sendStatus(500);
     } else {
-      console.log("requested User", user);
+      console.log("requested User", user.email);
       if(user == null) {
         // If the user is not in the database, return a forbidden error status
         console.log('No user found with that email. Have you added this person to the database? Email: ', req.decodedToken.email);

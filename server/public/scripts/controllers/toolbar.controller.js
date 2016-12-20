@@ -3,15 +3,17 @@ app.controller('ToolbarController', ['$http', '$mdDialog', "$mdBottomSheet", 'Da
   self.firebaseUserName = DataFactory.firebaseUserName
   self.cuisineTypes = DataFactory.cuisineTypesSelected;
   self.menuClick = function(){
-
     $mdBottomSheet.show({
       templateUrl: "../../views/templates/popups/menu.html",
       controller: 'MenuController as mc',
       parent: angular.element(document.body),
-      clickOutsideToClose: false
+      clickOutsideToClose: true
     })
     .then(function(){
-      console.log("cusine types", self.cuisineTypes);
+      
+        console.log("promise");
+
+
     })
 
   }

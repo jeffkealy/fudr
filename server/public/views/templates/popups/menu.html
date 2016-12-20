@@ -1,31 +1,40 @@
 <md-bottom-sheet >
   <div id="MenuToolbar">
-    Füdr
+    <h2>Füdr</h2>
   </div>
 
   <md-subheader >
-    Menu
+    <h2 id="menuTitle">Menu</h2>
+
     <md-list>
       <div class="menuContent" layout="row">
 
         <div layout="column" ng-controller="FirebaseController as fbc">
             <md-item >
-              <md-button ng-click="fbc.logIn()" class="md-primary md-raised">
+              <md-button ng-click="fbc.logIn()" layout="row" layout-align="center stretch"  class="md-primary md-raised">
                 Log In
               </md-button>
             </md-item>
             <md-item>
-              <md-button ng-click="fbc.logOut()" class="md-primary md-raised">
+              <md-button ng-click="fbc.logOut()" layout="row" layout-align="center stretch" class="md-primary md-raised">
                 Log Out
               </md-button>
             </md-item>
-          <div ng-controller="HomeController as hc">
-            <md-item>
-              <md-button ng-click="hc.favoritesButton($event)" layout="row" class="md-primary md-raised" >
+            <md-item >
+              <md-button ng-click="hc.favoritesButton($event)" layout="row" layout-align="center stretch" class="md-primary md-raised" >
                 Favorites
               </md-button>
             </md-item>
-          </div>
+            <md-item>
+              <md-button ng-click="mc.selectNoneButton()" layout="row" layout-align="center stretch" class="md-primary md-raised" >
+                pick none
+              </md-button>
+            </md-item>
+            <md-item>
+              <md-button ng-click="mc.selectAllButton()" layout="row" layout-align="center stretch" class="md-primary md-raised" >
+                pick all
+              </md-button>
+            </md-item>
         </div >
           <div layout="row" layout-wrap md-scroll-y flex class="checkBoxesGroup" >
             <md-checkbox class="checkBox" flex="20" layout="row" ng-repeat="cuisineType in mc.cuisineTypes" ng-checked="mc.checkBoxes(cuisineType, mc.selected)"
@@ -33,8 +42,10 @@
               {{cuisineType}}
             </md-checkbox>
         </div>
+
       </div>
     </md-list>
+
   </md-subheader>
   </div>
 </md-bottom-sheet>

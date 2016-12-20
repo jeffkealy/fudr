@@ -3,12 +3,114 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
   var self = this;
   self.dishes = [];
   self.yums = [];
+  self.clickedDishes=[];
+  self.clickedDish ={};
   self.currentRestaurant = {};
   self.currentDish = {};
   self.randomNumber = 0;
   var auth = $firebaseAuth();
+  self.filteredResults = []
 
 
+
+  //get all dishes
+  self.getDishes = function() {
+    self.dishes = [];
+    $http.get('/dishes/dishes')
+      .then(function(response) {
+        self.filteredResults = response.data;
+        self.dishes = response.data;
+        console.log("INITIAL GET", self.dishes);
+        self.cuisineTypeFilter();
+
+    });
+  }
+
+  self.getDishes();
+
+
+
+
+  self.cuisineTypeFilter = function(){
+  self.filteredResults = [];
+  for (var i = 0; i < self.dishes.length; i++) {
+    var addToFilteredList = false;
+    for (var j = 0; j < self.dishes[i].cuisinetype.length; j++) {
+      for (var k = 0; k < DataFactory.cuisineTypesSelected.length; k++) {
+        if (self.dishes[i].cuisinetype[j]== DataFactory.cuisineTypesSelected[k]) {
+          addToFilteredList = true;
+        }
+      }
+    }
+    if( addToFilteredList == true){
+
+      self.filteredResults.push(self.dishes[i]);
+    }
+  }
+  self.dishes =  self.filteredResults
+  getRandomDish();
+  console.log("filtered dishes", self.filteredResults);
+
+  }
+
+    // self.cuisineTypeFilter();
+
+
+  //get random dish
+  function getRandomDish(){
+    self.randomNumber = randomNumberGen(0, self.dishes.length-1)
+    self.currentDish = self.dishes[self.randomNumber];
+    // DataFactory.dishes = self.dishes;
+    self.getRestaurant();
+  }
+
+  //get current restaurant from DB
+  self.getRestaurant = function(){
+    // if(self.dishes.length > 1){
+    $http.get('/dishes/currentRestaurantfromDb/' + self.currentDish.restaurant_id )
+      .then(function(response) {
+        self.currentRestaurant = response.data;
+        DataFactory.currentRestaurant = self.currentRestaurant[0];
+        self.currentDish.currentRestaurant = self.currentRestaurant;
+      });
+    // }
+  }
+
+  //Yum button clicked
+  self.yumButton = function(){
+    if(self.dishes.length > 1 ){
+      self.yums.push(self.currentDish)
+      self.clickedDishes.push(self.currentDish)
+      self.dishes.splice(self.randomNumber,1);
+      console.log(" Clicked Dishes", self.clickedDishes);
+      DataFactory.yums = self.yums;
+      self.cuisineTypeFilter();
+      // getFavorites();
+      console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
+      console.log("Dishes length ", self.dishes.length);
+    } else {
+    self.currentDish.photourl = "../../assets/sadegg.jpg";
+    self.currentDish.dishName = "No More Dishes :(";
+    self.currentDish.currentRestaurant[0].name = "So Sad";
+    }
+  }
+  //Naw button clicked
+  self.nawButton = function(){
+    if (self.dishes.length > 1 ){
+      self.clickedDishes.push(self.currentDish);
+      console.log(" Clicked Dishes", self.clickedDishes);
+
+      //self.filteredResults.splice(self.randomNumber,1);
+      self.cuisineTypeFilter();
+      getFavorites();
+      console.log("dish to remove", self.currentDish);
+    } else {
+      self.currentDish.photourl = "../../assets/sadegg.jpg";
+      self.currentDish.dishName = "No More Dishes :(";
+      self.currentDish.currentRestaurant[0].name = "So Sad";
+    }
+
+  }
 
   auth.$onAuthStateChanged(function(firebaseUser){
     // firebaseUser will be null if not logged in
@@ -45,78 +147,10 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
 
 
 
-  //get all dishes
-  self.getDishes = function() {
-    self.dishes = [];
-    self.currentDish = {};
-    $http.get('/dishes/dishes')
-      .then(function(response) {
-        self.dishes = response.data;
-        getRandomDish();
-        cuisineTypeFilter();
-        self.getRestaurant();
 
 
 
-    });
 
-  }
-
-  self.getDishes();
-
-  //get random dish
-  function getRandomDish(){
-    self.randomNumber = randomNumberGen(0, self.dishes.length-1)
-    self.currentDish = self.dishes[self.randomNumber];
-    console.log("currentDish", self.currentDish);
-    DataFactory.dishes = self.dishes;
-  }
-
-  self.getRestaurant = function(){
-    $http.get('/dishes/currentRestaurantfromDb/' + self.currentDish.restaurant_id )
-      .then(function(response) {
-        self.currentRestaurant = response.data;
-        DataFactory.currentRestaurant = self.currentRestaurant[0];
-        self.currentDish.currentRestaurant = self.currentRestaurant;
-
-        // console.log("restaurant attached to Dish", self.currentDish.currentRestaurant);
-    });
-  }
-
-  //Yum button clicked
-  self.yumButton = function(){
-    console.log("self.dishes.length", self.dishes.length);
-    if(self.dishes.length > 0 ){
-      self.yums.push(self.currentDish)
-      self.dishes.splice(self.randomNumber,1)
-      self.randomNumber = randomNumberGen(0, self.dishes.length-1)
-      self.currentDish = self.dishes[self.randomNumber];
-      getFavorites();
-      cuisineTypeFilter();
-      //add true/false to current dish to indicate favorite
-      //ng-class -give an object to test if true/false
-      DataFactory.yums = self.yums;
-      self.getRestaurant();
-      // console.log("current dishes", self.dishes);
-      // console.log("Yums", self.yums);
-    }
-  }
-  //Naw button clicked
-  self.nawButton = function(){
-    if (self.dishes.length > 0 ){
-      // console.log("clicked the Naw button");
-      self.dishes.splice(self.randomNumber,1)
-      self.randomNumber = randomNumberGen(0, self.dishes.length-1)
-      self.currentDish = self.dishes[self.randomNumber];
-      getFavorites();
-      cuisineTypeFilter();
-      self.getRestaurant();
-      console.log("dish to remove", self.currentDish);
-    } else {
-
-    }
-
-  }
 
   //info pop up
   self.infoButton = function(ev){
@@ -251,7 +285,6 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
               DataFactory.favorites = response.data;
               for (var i = 0; i < DataFactory.favorites.favorites.length; i++) {
                 if (self.currentDish._id == DataFactory.favorites.favorites[i] ) {
-                  console.log("Theres a favorite here");
                   self.currentDish.favorite = true;
                 }
               }
@@ -264,21 +297,6 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     }
   }
 
-  //logic to filter by cuisne type
-  function cuisineTypeFilter() {
-    console.log("DataFactory.cuisineTypesSelected", DataFactory.cuisineTypesSelected);
-    console.log("self.currentDish.cuisinetype", self.currentDish.cuisinetype);
-    for (var i = 0; i < DataFactory.cuisineTypesSelected.length; i++) {
-      for (var x = 0; x < self.currentDish.cuisinetype.length; x++) {
-        if (DataFactory.cuisineTypesSelected[i] == self.currentDish.cuisinetype[x]) {
-          console.log("diplay this dish");
-        }
-        else {
-        console.log("dont display this dish");
-        }
-      }
-    }
-  }
 
   function randomNumberGen(min, max){
       return Math.floor(Math.random() * (1 + max - min) + min);

@@ -3,9 +3,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngMaterial', 'firebase']);
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/home', {
-            templateUrl: '/views/templates/home.html',
-            controller: 'HomeController',
-            controllerAs: 'hc'
+            templateUrl: '/views/templates/home.html'
         })
         .when('/searchdish', {
             templateUrl: '/views/templates/searchdish.html',

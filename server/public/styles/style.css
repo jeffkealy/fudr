@@ -8,10 +8,6 @@ body {
 #homeCardTitle{
   padding: 0;
 }
-
-#homeCard{
-
-}
 #toolbar{
   background-color: #db3236;
 
@@ -39,6 +35,20 @@ body {
 #MenuToolbar{
   background-color: #db3236;
   color: white;
+  height: 51px;
+  padding-left: 16px;
+  padding-top: 16px;
+
+}
+#MenuToolbar h2{
+  margin: 0;
+
+}
+#menuTitle{
+  padding-left: 23px;
+  margin: 0;
+  border-bottom: 1px solid;
+  height: 45px;
 }
 span{
   text-align: center;

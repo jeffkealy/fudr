@@ -5,11 +5,7 @@ var Restaurant = require('../models/restaurantSchema');
 var Dish = require('../models/dishSchema');
 var https = require('https');
 var Factual = require('factual-api');
-
-if (process.env.OAuth_KEY != undefined) {
-  require('dotenv').config();
-}
-
+require('dotenv').config();
 var factual = new Factual(process.env.OAuth_KEY, process.env.OAuth_Secret);
 
 
@@ -92,5 +88,19 @@ router.get('/currentRestaurantfromDb/:id', function(req, res) {
     }
   });
 });
+
+//get filtered dishes
+router.put('/filterTypes', function(req,res){
+  Dish.find({cuisinetype:{$in: req.body}}, function(err, dishes){
+    if(err) {
+      console.log('Get ERR: ', err);
+      res.sendStatus(500);
+    } else {
+      console.log("dishes to send", dishes.length);
+
+      res.send(dishes);
+    }
+  })
+})
 
 module.exports = router;
