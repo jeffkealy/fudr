@@ -26,37 +26,31 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     });
   }
 
-  self.getDishes();
+  self.getDishes();//runs once on page load
 
-
-
-
+  //filter results
   self.cuisineTypeFilter = function(){
-  self.filteredResults = [];
-  for (var i = 0; i < self.dishes.length; i++) {
-    var addToFilteredList = false;
-    for (var j = 0; j < self.dishes[i].cuisinetype.length; j++) {
-      for (var k = 0; k < DataFactory.cuisineTypesSelected.length; k++) {
-        if (self.dishes[i].cuisinetype[j]== DataFactory.cuisineTypesSelected[k]) {
-          addToFilteredList = true;
+    self.filteredResults = [];
+    for (var i = 0; i < self.dishes.length; i++) {
+      var addToFilteredList = false;
+      for (var j = 0; j < self.dishes[i].cuisinetype.length; j++) {
+        for (var k = 0; k < DataFactory.cuisineTypesSelected.length; k++) {
+          if (self.dishes[i].cuisinetype[j]== DataFactory.cuisineTypesSelected[k]) {
+            addToFilteredList = true;
+          }
         }
       }
-    }
-    if( addToFilteredList == true){
+      if( addToFilteredList == true){
 
-      self.filteredResults.push(self.dishes[i]);
+        self.filteredResults.push(self.dishes[i]);
+      }
     }
-  }
-  self.dishes =  self.filteredResults
-  getRandomDish();
-  console.log("filtered dishes", self.filteredResults);
-
+    self.dishes =  self.filteredResults
+    getRandomDish();
+    console.log("filtered dishes", self.filteredResults);
   }
 
-    // self.cuisineTypeFilter();
-
-
-  //get random dish
+  //get a random dish
   function getRandomDish(){
     self.randomNumber = randomNumberGen(0, self.dishes.length-1)
     self.currentDish = self.dishes[self.randomNumber];
@@ -64,16 +58,14 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     self.getRestaurant();
   }
 
-  //get current restaurant from DB
+  //get current restaurant assisiated with dish id from DB
   self.getRestaurant = function(){
-    // if(self.dishes.length > 1){
     $http.get('/dishes/currentRestaurantfromDb/' + self.currentDish.restaurant_id )
       .then(function(response) {
         self.currentRestaurant = response.data;
         DataFactory.currentRestaurant = self.currentRestaurant[0];
         self.currentDish.currentRestaurant = self.currentRestaurant;
       });
-    // }
   }
 
   //Yum button clicked
@@ -85,7 +77,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
       console.log(" Clicked Dishes", self.clickedDishes);
       DataFactory.yums = self.yums;
       self.cuisineTypeFilter();
-      // getFavorites();
+      getFavorites();
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
       console.log("Dishes length ", self.dishes.length);
     } else {
@@ -94,24 +86,25 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     self.currentDish.currentRestaurant[0].name = "So Sad";
     }
   }
+
   //Naw button clicked
   self.nawButton = function(){
     if (self.dishes.length > 1 ){
       self.clickedDishes.push(self.currentDish);
+      self.dishes.splice(self.randomNumber,1);
       console.log(" Clicked Dishes", self.clickedDishes);
-
-      //self.filteredResults.splice(self.randomNumber,1);
       self.cuisineTypeFilter();
       getFavorites();
-      console.log("dish to remove", self.currentDish);
+      console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
+      console.log("Dishes length ", self.dishes.length);
     } else {
       self.currentDish.photourl = "../../assets/sadegg.jpg";
       self.currentDish.dishName = "No More Dishes :(";
       self.currentDish.currentRestaurant[0].name = "So Sad";
     }
-
   }
 
+  //Check authorization satus
   auth.$onAuthStateChanged(function(firebaseUser){
     // firebaseUser will be null if not logged in
     self.currentUser = firebaseUser;
@@ -145,125 +138,127 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
 
   });
 
-
-
-
-
-
-
-
   //info pop up
   self.infoButton = function(ev){
-    $mdDialog.show({
-      controller: 'InfopopupController as ip',
-      templateUrl: '../../views/templates/popups/infopopup.html',
+    if(self.dishes.length > 1 ){
+      $mdDialog.show({
+        controller: 'InfopopupController as ip',
+        templateUrl: '../../views/templates/popups/infopopup.html',
 
-      targetEvent: ev,
-      clickOutsideToClose:true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-    });
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+      });
+    }
   }
 
   //Yum review pop up
   self.yumReviewButton = function(ev){
-    console.log("current restaurant", self.currentRestaurant);
-    $mdDialog.show({
-      controller: 'YumreviewpopupController as yrp',
-      templateUrl: '../../views/templates/popups/yumreviewpopup.html',
+    if(self.dishes.length > 1 ){
+      console.log("current restaurant", self.currentRestaurant);
+      $mdDialog.show({
+        controller: 'YumreviewpopupController as yrp',
+        templateUrl: '../../views/templates/popups/yumreviewpopup.html',
 
-      targetEvent: ev,
-      clickOutsideToClose:true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-    });
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+      });
+    }
   }
 
   //Add/remove favorite button
   self.addFavoriteButton = function(){
-    if (self.currentDish.favorite == true) {
-      console.log("if true, change to ", self.currentDish.favorite);
-        var currentDishId = self.currentDish._id;
-        var currentUserEmail = self.currentUser.email;
-      if(self.currentUser) {
-        self.currentUser.getToken().then(function(idToken){
-          $http({
-            method: 'GET',
-            url: '/privateData',
-            headers: {
-              id_token: idToken
-            }
-          }).then(function(response){
-            console.log("req to send", favorite);
+    if(self.dishes.length > 1 ){
+      if (self.currentDish.favorite == true) {
+        console.log("if true, change to ", self.currentDish.favorite);
+          var currentDishId = self.currentDish._id;
+          var currentUserEmail = self.currentUser.email;
+        if(self.currentUser) {
+          self.currentUser.getToken().then(function(idToken){
             $http({
-              method: 'DELETE',
-              url: "/privateData/removeFavorite",
-              headers: {
-                id_token: idToken,
-                dish_id: currentDishId,
-                user_email: currentUserEmail
-              }
-            }).then(function(response){
-                self.currentDish.favorite = true;
-                getFavorites();
-                console.log("Removed dish " + self.currentDish._id + " as fav"  );
-
-              })
-          });
-        });
-      } else {
-        console.log('Not logged in or not authorized.');
-        self.secretData = [];
-      }
-
-    } else {
-
-       var favorite = {
-        currentDishId: self.currentDish._id,
-        currentUserEmail: self.currentUser.email
-      }
-      if(self.currentUser) {
-        self.currentUser.getToken().then(function(idToken){
-          $http({
-            method: 'GET',
-            url: '/privateData',
-            headers: {
-              id_token: idToken
-            }
-          }).then(function(response){
-            console.log("req to send", favorite);
-            $http({
-              method: 'PUT',
-              url: "/privateData/addFavorite",
+              method: 'GET',
+              url: '/privateData',
               headers: {
                 id_token: idToken
-              },
-              data: favorite
+              }
             }).then(function(response){
-              self.currentDish.favorite = false;
-                getFavorites()
-                console.log("Added dish " + self.currentDish._id + "as fav");
+              console.log("req to send", favorite);
+              $http({
+                method: 'DELETE',
+                url: "/privateData/removeFavorite",
+                headers: {
+                  id_token: idToken,
+                  dish_id: currentDishId,
+                  user_email: currentUserEmail
+                }
+              }).then(function(response){
+                  self.currentDish.favorite = true;
+                  getFavorites();
+                  console.log("Removed dish " + self.currentDish._id + " as fav"  );
 
-              })
+                })
+            });
           });
-        });
+        } else {
+          console.log('Not logged in or not authorized.');
+          self.secretData = [];
+        }
+
       } else {
-        console.log('Not logged in or not authorized.');
-        self.secretData = [];
+
+         var favorite = {
+          currentDishId: self.currentDish._id,
+          currentUserEmail: self.currentUser.email
+        }
+        if(self.currentUser) {
+          self.currentUser.getToken().then(function(idToken){
+            $http({
+              method: 'GET',
+              url: '/privateData',
+              headers: {
+                id_token: idToken
+              }
+            }).then(function(response){
+              console.log("req to send", favorite);
+              $http({
+                method: 'PUT',
+                url: "/privateData/addFavorite",
+                headers: {
+                  id_token: idToken
+                },
+                data: favorite
+              }).then(function(response){
+                self.currentDish.favorite = false;
+                  getFavorites()
+                  console.log("Added dish " + self.currentDish._id + "as fav");
+
+                })
+            });
+          });
+        } else {
+          console.log('Not logged in or not authorized.');
+          self.secretData = [];
+        }
       }
     }
   }
 
   //list favorites button
   self.favoritesButton = function(ev){
-    $mdDialog.show({
-      controller: 'FavoritespopupController as fp',
-      templateUrl: '../../views/templates/popups/favoritespopup.html',
-      targetEvent: ev,
-      clickOutsideToClose:true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-    });
+    if(self.dishes.length > 1 ){
+      $mdDialog.show({
+        controller: 'FavoritespopupController as fp',
+        templateUrl: '../../views/templates/popups/favoritespopup.html',
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+      });
+    }
   }
 
-  function getFavorites() {//get favoirtes. then review to see if any of the user's favorites are the current dish
+  //get favoirtes. then review to see if any of the user's favorites are the current dish
+  function getFavorites() {
     if(self.currentUser) {
       self.currentUser.getToken().then(function(idToken){
         $http({
@@ -297,7 +292,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     }
   }
 
-
+  //function to generate a random number
   function randomNumberGen(min, max){
       return Math.floor(Math.random() * (1 + max - min) + min);
   }
