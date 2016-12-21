@@ -10,15 +10,15 @@
       <div layout="column" layout-align="center center">
         <div class="md-dialog-content"><u><h2>Favorites</h2> </u>
         </div>
-        <md-card ng-repeat="dish in fp.favoriteDishes"  class="md-dialog-content md-whiteframe-13dp" layout="column" layout-align="center center" >
+        <md-card ng-repeat="fav in fp.favoriteDishes"  class="md-dialog-content md-whiteframe-13dp" layout="column" layout-align="center center" >
           <div  class="homeImage">
-            <img ng-src="{{dish.photourl}}" class="md-card-image">
+            <img ng-src="{{fav.photourl}}" class="md-card-image">
           </div>
           <div>
             <span class="md-headline"><p>{{dish.dishName}}</p> </span>
-            <!-- <p>{{yum.currentRestaurant[0].address}} {{yum.currentRestaurant[0].locality}}, {{yum.currentRestaurant[0].region}} {{yum.currentRestaurant[0].postcode}}</p>
+            <p>{{yum.currentRestaurant[0].address}} {{yum.currentRestaurant[0].locality}}, {{yum.currentRestaurant[0].region}} {{yum.currentRestaurant[0].postcode}}</p>
             <p>{{yum.currentRestaurant[0].tel}}</p>
-            <p>{{yum.currentRestaurant[0].hours_display}}</p> -->
+            <p>{{yum.currentRestaurant[0].hours_display}}</p>
           </div>
           <md-button  class="md-fab md-primary"  ng-click="fp.infoButton($event)" aria-label="yum review">
             <md-icon class="material-icons">info_outline</md-icon>

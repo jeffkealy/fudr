@@ -20,6 +20,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
       .then(function(response) {
         self.filteredResults = response.data;
         self.dishes = response.data;
+        DataFactory.dishes = response.data
         console.log("INITIAL GET", self.dishes);
         self.cuisineTypeFilter();
 
@@ -54,7 +55,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
   function getRandomDish(){
     self.randomNumber = randomNumberGen(0, self.dishes.length-1)
     self.currentDish = self.dishes[self.randomNumber];
-    // DataFactory.dishes = self.dishes;
+
     self.getRestaurant();
   }
 
@@ -154,17 +155,15 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
 
   //Yum review pop up
   self.yumReviewButton = function(ev){
-    if(self.dishes.length > 1 ){
-      console.log("current restaurant", self.currentRestaurant);
-      $mdDialog.show({
-        controller: 'YumreviewpopupController as yrp',
-        templateUrl: '../../views/templates/popups/yumreviewpopup.html',
+    console.log("current restaurant", self.currentRestaurant);
+    $mdDialog.show({
+      controller: 'YumreviewpopupController as yrp',
+      templateUrl: '../../views/templates/popups/yumreviewpopup.html',
 
-        targetEvent: ev,
-        clickOutsideToClose:true,
-        fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-      });
-    }
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+    });
   }
 
   //Add/remove favorite button
@@ -244,18 +243,6 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     }
   }
 
-  //list favorites button
-  self.favoritesButton = function(ev){
-    if(self.dishes.length > 1 ){
-      $mdDialog.show({
-        controller: 'FavoritespopupController as fp',
-        templateUrl: '../../views/templates/popups/favoritespopup.html',
-        targetEvent: ev,
-        clickOutsideToClose:true,
-        fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-      });
-    }
-  }
 
   //get favoirtes. then review to see if any of the user's favorites are the current dish
   function getFavorites() {

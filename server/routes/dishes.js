@@ -103,4 +103,17 @@ router.put('/filterTypes', function(req,res){
   })
 })
 
+//get restaurants
+router.put('/favoritesRestaurants', function(req,res){
+  Restaurant.find({_id: {$in: req.body}}, function(err, restaurants){
+    if(err) {
+      console.log('Get ERR: ', err);
+      res.sendStatus(500);
+    } else {
+      console.log("restaurants to send", restaurants.length);
+      res.send(restaurants);
+    }
+  })
+})
+
 module.exports = router;

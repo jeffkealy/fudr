@@ -37,19 +37,16 @@
     <md-toolbar class="md-tall" id="toolbar"  ng-controller="ToolbarController as tc">
         <div class="md-toolbar-tools" id="md-toolbar-tools" layout="row" layout-align="center">
             <div layout="column">
-              <h1><a href="http://localhost:3000/#/home/home">Füdr</a></h1>
+              <h1><a href="#home">Füdr</a></h1>
               <h5>Where To Go For Dinner</h5>
             </div>
         </div>
-
           <div layout="row" layout-align="end center">
-            <p id=toolbarName >{{tc.firebaseUserName.displayName}}</p>
+            <p id=toolbarName ng-click="tc.logIn()" ><a href="">{{tc.firebaseUserName.displayName}}</a> </p>
             <md-button id="toolbarButton" class="md-raised md-primary" ng-click="tc.menuClick()" >
               <md-icon class="material-icons" aria-lable="Menu">menu</md-icon>
             </md-button>
-
         </div>
-
     </md-toolbar>
     <md-content ng-view></md-content>
   </body>
