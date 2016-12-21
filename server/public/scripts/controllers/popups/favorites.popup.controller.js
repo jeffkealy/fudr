@@ -37,7 +37,6 @@ app.controller('FavoritespopupController', ['$http', '$mdDialog', 'DataFactory',
             for (var i = 0; i < self.favoriteDishes.length; i++) {
               for (var j = 0; j < self.favoritesRestaurants.length; j++) {
                 if (self.favoriteDishes[i].restaurant_id == self.favoritesRestaurants[j]._id) {
-                  
                   self.favoriteDishes[i].restaurant = self.favoritesRestaurants[j];
                 }
               }

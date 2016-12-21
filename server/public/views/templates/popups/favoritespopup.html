@@ -7,23 +7,28 @@
     </md-toolbar>
 
     <md-dialog-content >
-      <div layout="column" layout-align="center center">
-        <div class="md-dialog-content"><u><h2>Favorites</h2> </u>
+      <div>
+        <div id="popUpMenuTitle" class="md-dialog-content" >
+          <u><h1>Favorites</h1> </u>
         </div>
-        <md-card ng-repeat="fav in fp.favoriteDishes"  class="md-dialog-content md-whiteframe-13dp" layout="column" layout-align="center center" >
-          <div  class="homeImage">
-            <img ng-src="{{fav.photourl}}" class="md-card-image">
-          </div>
-          <div>
-            <span class="md-headline"><p>{{dish.dishName}}</p> </span>
-            <p>{{yum.currentRestaurant[0].address}} {{yum.currentRestaurant[0].locality}}, {{yum.currentRestaurant[0].region}} {{yum.currentRestaurant[0].postcode}}</p>
-            <p>{{yum.currentRestaurant[0].tel}}</p>
-            <p>{{yum.currentRestaurant[0].hours_display}}</p>
-          </div>
-          <md-button  class="md-fab md-primary"  ng-click="fp.infoButton($event)" aria-label="yum review">
-            <md-icon class="material-icons">info_outline</md-icon>
-          </md-button>
-        </md-card>
+        <div layout="column" layout-align="center center">
+          <md-card ng-repeat="fav in fp.favoriteDishes"  class="md-dialog-content md-whiteframe-13dp"  layout="column"  >
+            <div  class="homeImage">
+              <img ng-src="{{fav.photourl}}" class="md-card-image" >
+            </div>
+            <div id="popUpContent">
+              <span class="md-headline"><p><u>{{fav.dishName}}</u></p> <p>at</p>  <h2>{{fav.restaurant.name}}</h2></span>
+              <div layout="column">
+                <p>{{fav.restaurant.address}} {{fav.restaurant.locality}}, {{fav.restaurant.region}} {{fav.restaurant.postcode}}</p>
+                <p>{{fav.restaurant.tel}}</p>
+                <p>{{fav.restaurant.hours_display}}</p>
+              </div>
+            </div>
+            <md-button  class="md-fab md-primary"  ng-click="fp.infoButton($event)" aria-label="yum review">
+              <md-icon class="material-icons">info_outline</md-icon>
+            </md-button>
+          </md-card>
+        </div>
       </div>
     </md-dialog-content>
 
