@@ -78,12 +78,12 @@ router.get('/fromDb', function(req, res) {
 
 // search my DB for current restaurants
 router.get('/currentRestaurantfromDb/:id', function(req, res) {
-  Restaurant.find({_id: req.params.id}, function(err, restaurant) {
+  Restaurant.findById(req.params.id, function(err, restaurant) {
     if(err) {
       console.log('Get ERR: ', err);
       res.sendStatus(500);
     } else {
-
+      console.log("restaurant", restaurant);
       res.send(restaurant);
     }
   });

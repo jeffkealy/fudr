@@ -15,11 +15,11 @@
             <img ng-src="{{yum.photourl}}" class="md-card-image">
           </div>
           <div>
-            <span class="md-headline"><p>{{yum.dishName}}</p> <p>at</p>  <h2>{{yum.currentRestaurant[0].name}}</h2></span>
+            <span class="md-headline"><p>{{yum.dishName}}</p> <p>at</p>  <h2>{{yum.currentRestaurant.name}}</h2></span>
             <div layout="column">
-              <span class="md-subhead">{{yum.currentRestaurant[0].address}} {{yum.currentRestaurant[0].locality}}, {{yum.currentRestaurant[0].region}} {{yum.currentRestaurant[0].postcode}}</span>
-              <span class="md-subhead">{{yum.currentRestaurant[0].tel}}</span>
-              <span class="md-subhead">{{yum.currentRestaurant[0].hours_display}}</span>
+              <span class="md-subhead">{{yum.currentRestaurant.address}} {{yum.currentRestaurant.locality}}, {{yum.currentRestaurant.region}} {{yum.currentRestaurant.postcode}}</span>
+              <span class="md-subhead">{{yum.currentRestaurant.tel}}</span>
+              <span class="md-subhead">{{yum.currentRestaurant.hours_display}}</span>
             </div>
           </div>
           <md-button class="md-fab md-primary" aria-label="Favorite">

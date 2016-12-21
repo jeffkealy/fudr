@@ -21,7 +21,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
         self.filteredResults = response.data;
         self.dishes = response.data;
         DataFactory.dishes = response.data
-        console.log("INITIAL GET", self.dishes);
+        // console.log("INITIAL GET", self.dishes);
         self.cuisineTypeFilter();
 
     });
@@ -48,7 +48,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     }
     self.dishes =  self.filteredResults
     getRandomDish();
-    console.log("filtered dishes", self.filteredResults);
+    // console.log("filtered dishes", self.filteredResults);
   }
 
   //get a random dish
@@ -64,8 +64,9 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     $http.get('/dishes/currentRestaurantfromDb/' + self.currentDish.restaurant_id )
       .then(function(response) {
         self.currentRestaurant = response.data;
-        DataFactory.currentRestaurant = self.currentRestaurant[0];
+        DataFactory.currentRestaurant = self.currentRestaurant;
         self.currentDish.currentRestaurant = self.currentRestaurant;
+        console.log("current restaurant", self.currentDish);
       });
   }
 
@@ -73,6 +74,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
   self.yumButton = function(){
     if(self.dishes.length > 1 ){
       self.yums.push(self.currentDish)
+      console.log("yums",self.yums);
       self.clickedDishes.push(self.currentDish)
       self.dishes.splice(self.randomNumber,1);
       console.log(" Clicked Dishes", self.clickedDishes);
