@@ -49,7 +49,7 @@ router.post("/", function(req, res){
       } else {
         // Based on the clearance level of the individual, give them access to different information
         if(user.clearanceLevel >= newUser.clearanceLevel) {
-          var personToAdd = new User(newUser);
+          var personToAdd = new userSchema(newUser);
           personToAdd.save(function(err){
             if(err){
               console.log('There was an error inserting new user, ', err);
@@ -66,7 +66,26 @@ router.post("/", function(req, res){
   });
 });
 
+router.post('/addUser', function(req, res){
+  console.log("POST adduser: ", req.body.email);
+  var newUser = {
+    email: req.body.email,
+    favorites: []
+  }
+  console.log("newUser", newUser);
+  var personToAdd = new User(newUser);
+  personToAdd.save(function(err){
+    if(err){
+      console.log('There was an error inserting new user, ', err);
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(201);
+    }
+  })
+})
 
+
+//get favorites from my db
 router.get('/favorites/', function(req, res){
   var query = { email: req.headers.email};
   User.findOne(query, function(err, data) {
@@ -79,6 +98,7 @@ router.get('/favorites/', function(req, res){
   })
 })
 
+//add favorite
 router.put('/addFavorite/', function(req, res){
   console.log("req.body", req.body);
   var conditions = { email: req.body.currentUserEmail};
@@ -94,6 +114,7 @@ router.put('/addFavorite/', function(req, res){
   })
 })
 
+//delete favaoirte
 router.delete('/removeFavorite/', function(req, res){
   console.log("req.headers.dish_id", req.headers.dish_id);
   console.log("req.headers.user_email", req.headers.user_email);

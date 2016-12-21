@@ -1,5 +1,4 @@
 app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebaseAuth', function($http, $mdDialog, DataFactory, $firebaseAuth){
-  var key = 'AIzaSyBiMubXEKljXk7iYHzhz76eeOwMgcaIpKM'
   var self = this;
   self.dishes = [];
   self.yums = [];

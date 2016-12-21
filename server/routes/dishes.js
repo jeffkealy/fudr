@@ -83,7 +83,6 @@ router.get('/currentRestaurantfromDb/:id', function(req, res) {
       console.log('Get ERR: ', err);
       res.sendStatus(500);
     } else {
-      console.log("restaurant", restaurant);
       res.send(restaurant);
     }
   });
