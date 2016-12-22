@@ -44,12 +44,12 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
     self.newDish.factual_id = DataFactory.place.factual_id;
     self.newDish.restaurant_id = DataFactory.place._id;
     console.log("new dish after click", self.newDish);
-    // console.log("you stopped the post call because you need to fix restaurant_id");
-    // $http.post('dishes/dish', self.newDish)
-    //   .then(function(response){
-    //     console.log("added Dish");
-    //     self.newDish={};
-    //   })
+    console.log("you stopped the post call because you need to fix restaurant_id");
+    $http.post('dishes/dish', self.newDish)
+      .then(function(response){
+        console.log("added Dish");
+        self.newDish={};
+      })
   }
 
 

@@ -1,12 +1,12 @@
 
-<div class="container" layout="row" layout-align="center">
+<div class="container" layout="row" layout-sm="column" layout-xs="column" layout-align="center">
 
-  <md-button ng-click="hc.nawButton()"><h1>Naw</h1></md-button>
+  <md-button hide-sm hide-xs ng-click="hc.nawButton()"><h1>Naw</h1></md-button>
     <div class="card" layout="row" layout-align="center start" id="homeCard">
       <md-card class="md-whiteframe-13dp" >
         <md-card-header>
-            <div class="homeImage" layout="column" layout-align="center center" >
-              <img ng-src="{{hc.currentDish.photourl}}" class="md-card-image" >
+            <div md-swipe-right="hc.yumButton()" md-swipe-left="hc.nawButton()" class="homeImage" layout="column" layout-align="center center" >
+              <img md-swipe-right="hc.yumButton()" md-swipe-left="hc.nawButton()" ng-src="{{hc.currentDish.photourl}}" class="md-card-image" >
             </div>
 
 
@@ -34,5 +34,11 @@
       </md-card>
   </div>
 
-  <md-button ng-click="hc.yumButton()"><h1>Yum!</h1></md-button>
+
+  <div hide-gt-sm  layout="row">
+    <md-button flex ng-click="hc.nawButton()"><h1>Naw</h1></md-button>
+    <md-button flex ng-click="hc.yumButton()"><h1>Yum!</h1></md-button>
+  </div>
+  <md-button hide-sm hide-xs ng-click="hc.yumButton()"><h1>Yum!</h1></md-button>
+
 </div>
