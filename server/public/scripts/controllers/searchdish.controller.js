@@ -21,11 +21,17 @@ self.searchPlaces = function(){
 //slecet the place to add
 self.clickedPlace = function(place){
   DataFactory.place = place;
-
+  console.log("place after click");
   $http.post('/dishes/restaurant', place)
-    .then(function(response){
-      console.log("error response", response);
-    })
+    .finally(function(response){
+      console.log("response", response);
+      $http.get('/dishes/searchRestaurantByFactualId/' + DataFactory.place.factual_id)
+        .then(function(response){
+          DataFactory.place = response.data
+          console.log("FINALLY: place to send to adddish", DataFactory.place);
+        });
+    });
+
   $location.path('/adddish');
   console.log("clicked the place", DataFactory.place);
 }

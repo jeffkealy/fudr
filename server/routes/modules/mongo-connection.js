@@ -10,7 +10,12 @@ if(process.env.MONGODB_URI != undefined) {
 } else {
     // use the local database server
     databaseUri = 'mongodb://localhost:27017/Fudr';
+
+    //point to mlab database
+    // databaseUri = 'mongodb://'+process.env.username+':'+process.env.password +'@ds133428.mlab.com:33428/heroku_h099xt12'
+
 }
+
 
 var connectToMongoDatabase = function() {
   mongoose.connect(databaseUri);

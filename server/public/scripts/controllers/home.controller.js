@@ -65,7 +65,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
         self.currentRestaurant = response.data;
         DataFactory.currentRestaurant = self.currentRestaurant;
         self.currentDish.currentRestaurant = self.currentRestaurant;
-        console.log("current restaurant", self.currentDish);
+        console.log("current dish and restaurant", self.currentDish);
       });
   }
 
@@ -156,7 +156,6 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
 
   //Yum review pop up
   self.yumReviewButton = function(ev){
-    console.log("current restaurant", self.currentRestaurant);
     $mdDialog.show({
       controller: 'YumreviewpopupController as yrp',
       templateUrl: '../../views/templates/popups/yumreviewpopup.html',

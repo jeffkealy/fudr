@@ -1,6 +1,6 @@
 app.factory('DataFactory', ['$http',function($http) {
   var placeObj = {
-    place: {},
+    place: {}, //place clicked from searchdish.conroller.js at 23, then adddish.controller.js at 59
     yums: [], //set at home.controller.js line 81
     currentRestaurant: [],
     currentDish: {},

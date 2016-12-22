@@ -56,7 +56,7 @@ router.post('/dish', function(req, res){
       console.log('ERR: ', err);
       res.sendStatus(500);
     } else {
-      console.log("Sending data");
+      console.log("Sending data", data);
       res.send(data);
     }
   })
@@ -75,7 +75,19 @@ router.get('/fromDb', function(req, res) {
   });
 });
 
-
+//search my DB for restaurants by factual_id
+router.get('/searchRestaurantByFactualId/:id', function(req, res) {
+  console.log("req.params.id: ", req.params.id );
+  Restaurant.findOne({factual_id: req.params.id}, function(err, restaurant) {
+    if(err) {
+      console.log('Get ERR: ', err);
+      res.sendStatus(500);
+    } else {
+      console.log("factual_id GET: ", restaurant);
+      res.send(restaurant);
+    }
+  });
+});
 // search my DB for current restaurants
 router.get('/currentRestaurantfromDb/:id', function(req, res) {
   Restaurant.findById(req.params.id, function(err, restaurant) {

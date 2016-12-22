@@ -25,7 +25,7 @@
               <span class="md-subhead">{{yum.currentRestaurant.hours_display}}</span> -->
             </div>
           </div>
-          <md-button class="md-fab md-primary" aria-label="Favorite">
+          <md-button  ng-class="{'starButton': hc.currentDish.favorite}" class="md-fab md-primary" aria-label="Favorite" ng-click="hc.addFavoriteButton()">
             <md-icon class="material-icons">star_border</md-icon>
           </md-button>
         </md-card>
