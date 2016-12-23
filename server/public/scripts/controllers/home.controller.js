@@ -70,7 +70,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
   }
 
   //Yum button clicked
-  self.yumButton = function(){
+  self.yumButton = function(ev){
     if(self.dishes.length > 1 ){
       self.yums.push(self.currentDish)
       console.log("yums",self.yums);

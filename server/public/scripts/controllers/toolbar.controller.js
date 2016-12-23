@@ -12,12 +12,7 @@ app.controller('ToolbarController', ['$http', '$mdDialog', "$mdBottomSheet", 'Da
       parent: angular.element(document.body),
       clickOutsideToClose: true
     })
-    .then(function(){
 
-        console.log("promise");
-
-
-    })
 
   }
 

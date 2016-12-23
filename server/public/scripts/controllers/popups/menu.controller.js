@@ -64,5 +64,16 @@ app.controller('MenuController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataF
     });
   }
 
+  app.directive('stopTouchEvent', function () {
+  return {
+      restrict: 'AEC',
+      link: function (scope, element) {
+          element.on('touchmove', function (evt) {
+              evt.stopPropagation();
+          });
+      }
+  };
+  })
+
 
 }]);

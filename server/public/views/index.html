@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Füdr</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
@@ -13,6 +14,7 @@
     <script type="text/javascript" src="vendors/angular-animate.min.js"></script>
     <script type="text/javascript" src="vendors/angular-aria.min.js"></script>
     <script type="text/javascript" src="vendors/angular-material.min.js"></script>
+    <!-- <script type="text/javascript" src="vendors/angular-swipe.js"></script> -->
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
     <!-- AngularFire -->
@@ -34,25 +36,23 @@
 
   </head>
   <body ng-app="myApp" ng-controller="HomeController as hc">
-    <div layout-sm="column" flex-sm="66">
       <md-toolbar class="md-tall" id="toolbar"  ng-controller="ToolbarController as tc">
-        <div layout="column" layout-align-sm="space-between">
-          <div class="md-toolbar-tools" id="md-toolbar-tools" layout="row" layout-align="center" layout-sm="row" layout-align-sm="center" layout-xs="column" >
+        <!-- <div layout="column" layout-align-xs="space-between"> -->
+          <div class="md-toolbar-tools" id="md-toolbar-tools" layout="row" layout-align="center" layout-xs="row" layout-align-xs="start" layout-xs="column" >
               <div layout="column">
                 <h1><a href="#home">Füdr</a></h1>
                 <h5>Where To Go For Dinner</h5>
               </div>
           </div>
           <span ></span>
-          <div layout="row" layout-align="end center" layout-sm="column" layout-xs="column" >
+          <div layout="row" layout-align="end center" layout-sm="column" layout-align-sm="space-between end"  layout-xs="column" layout-align-xs="space-between end" >
             <p id=toolbarName ng-click="tc.logIn()" ><a href="">{{tc.firebaseUserName.displayName}}</a> </p>
             <md-button id="toolbarButton" class="md-raised md-primary" ng-click="tc.menuClick()" >
               <md-icon class="material-icons" aria-lable="Menu">menu</md-icon>
             </md-button>
           </div>
-        </div>
+        <!-- </div> -->
       </md-toolbar>
-    </div>
-    <md-content ng-view></md-content>
+    <md-content ng-view class="stop-touch-event"></md-content>
   </body>
 </html>
