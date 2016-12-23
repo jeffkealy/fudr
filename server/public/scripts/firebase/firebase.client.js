@@ -1,4 +1,4 @@
-app.controller("FirebaseController", function($firebaseAuth, $http, DataFactory) {
+  app.controller("FirebaseController", function($firebaseAuth, $http, DataFactory) {
   console.log("firebase controller running");
   var auth = $firebaseAuth();
   var self = this;
@@ -10,7 +10,6 @@ app.controller("FirebaseController", function($firebaseAuth, $http, DataFactory)
   // This code runs whenever the user logs in
   self.logIn = function(){
     auth.$signInWithPopup("google").then(function(firebaseUser) {
-
       if(firebaseUser) {
         console.log("firebaseUser: ", firebaseUser);
         firebaseUser.user.getToken().then(function(idToken){
@@ -24,12 +23,9 @@ app.controller("FirebaseController", function($firebaseAuth, $http, DataFactory)
           }).then(function(response){
             console.log("posted");
           });
-       });
-        //firebaseUser.getToken().then(function(idToken){
-
-        // .catch(function(error) {
-        //   console.log("Authentication failed: ", error);
-        //   });
+       }).catch(function(error) {
+          console.log("Authentication failed: ", error);
+          });
       } else {
         console.log('Not logged in or not authorized.');
       }

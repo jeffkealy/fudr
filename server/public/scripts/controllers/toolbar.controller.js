@@ -19,8 +19,23 @@ app.controller('ToolbarController', ['$http', '$mdDialog', "$mdBottomSheet", 'Da
   //log in when click on name.
   self.logIn = function(){
     auth.$signInWithPopup("google").then(function(firebaseUser) {
-    }).catch(function(error) {
-      console.log("Authentication failed: ", error);
+      if(firebaseUser) {
+        console.log("firebaseUser: ", firebaseUser);
+        firebaseUser.user.getToken().then(function(idToken){
+          $http({
+            method: 'POST',
+            url: '/privateData/addUser',
+            headers: {
+              id_token: idToken
+            },
+            data: firebaseUser.user
+          }).then(function(response){
+            console.log("posted");
+          });
+        }).catch(function(error) {
+          console.log("Authentication failed: ", error);
+        });
+      }
     });
   };
 }]);
