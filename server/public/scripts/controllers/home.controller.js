@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebaseAuth', function($http, $mdDialog, DataFactory, $firebaseAuth){
+app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebaseAuth', '$mdToast', function($http, $mdDialog, DataFactory, $firebaseAuth, $mdToast){
   var self = this;
   self.dishes = [];
   self.yums = [];
@@ -72,6 +72,14 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
   //Yum button clicked
   self.yumButton = function(ev){
     if(self.dishes.length > 1 ){
+      //pop up toast message
+      $mdToast.show({
+        template: '<md-toast flex><span class="md-toast-text" flex>Yum! That Looks Good!</span></md-toast>' ,
+        position:'top',
+        hideDelay: 150,
+        controller: 'ToastController as TC',
+        parent: angular.element(document.getElementsByClassName('homeImage'))
+      }).then(function(){
       self.yums.push(self.currentDish)
       console.log("yums",self.yums);
       self.clickedDishes.push(self.currentDish)
@@ -82,6 +90,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
       getFavorites();
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
       console.log("Dishes length ", self.dishes.length);
+      })
     } else {
     self.currentDish.photourl = "../../assets/sadegg.jpg";
     self.currentDish.dishName = "No More Dishes :(";
@@ -92,6 +101,16 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
   //Naw button clicked
   self.nawButton = function(){
     if (self.dishes.length > 1 ){
+      //pop up toast message
+      $mdToast.show({
+        template: '<md-toast flex><span class="md-toast-text" flex>Naw, Not Feeling It</span></md-toast>' ,
+        position:'bottom',
+        hideDelay: 150,
+        controller: 'ToastController as TC',
+        parent: angular.element(document.getElementsByClassName('homeImage'))
+
+
+      }).then(function(){
       self.clickedDishes.push(self.currentDish);
       self.dishes.splice(self.randomNumber,1);
       console.log(" Clicked Dishes", self.clickedDishes);
@@ -99,6 +118,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
       getFavorites();
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
       console.log("Dishes length ", self.dishes.length);
+      });
     } else {
       self.currentDish.photourl = "../../assets/sadegg.jpg";
       self.currentDish.dishName = "No More Dishes :(";

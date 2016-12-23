@@ -132,6 +132,15 @@ a {
   color: inherit;;
   text-decoration: none; /* no underline */
 }
+@media screen and (min-width: 961px) {
+  .homeImageYum{
+    width: 600px;
+    height: 450px;
+    overflow: hidden;
+  }
+
+
+}
 @media screen and (max-width: 600px) {
   #toolbar h1{
     font-size: 52px;
