@@ -161,6 +161,11 @@ a {
     height: 275px;
     overflow: hidden;
   }
+  .homeImageYum{
+    width: 100%;
+    max-height: 200px;
+    overflow: hidden;
+  }
 
 
 }
@@ -192,5 +197,9 @@ a {
     height: 250px;
     overflow: hidden;
   }
-
+  .homeImageYum{
+    width: 100%;
+    max-height: 300px;
+    overflow: hidden;
+  }
 }

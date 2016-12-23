@@ -6,7 +6,7 @@
       <md-card flex-sm='100' flex-xs='100' class="md-whiteframe-13dp" >
         <md-card-header  >
             <div class="homeImage"  layout="column" layout-align="center center" >
-              <img   ng-src="{{hc.currentDish.photourl}}" class="md-card-image" >
+              <img ng-swipe-right="hc.yumButton()" ng-swipe-left="hc.nawButton()" ng-src="{{hc.currentDish.photourl}}" class="md-card-image" >
             </div>
                 <!-- md-swipe-right="hc.yumButton()" md-swipe-left="hc.nawButton()" -->
 

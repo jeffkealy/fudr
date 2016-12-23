@@ -37,7 +37,7 @@
             </md-item>
         </div >
           <div layout="row" layout-xs="column" layout-wrap md-scroll-y flex class="checkBoxesGroup" >
-            <md-checkbox flex-sm flex-xs class="checkBox" flex="20" layout="row" ng-repeat="cuisineType in mc.cuisineTypes" ng-checked="mc.checkBoxes(cuisineType, mc.selected)"
+            <md-checkbox flex-sm flex-xs='100' class="checkBox" flex="20" layout="row" ng-repeat="cuisineType in mc.cuisineTypes" ng-checked="mc.checkBoxes(cuisineType, mc.selected)"
               ng-click="mc.toggle(cuisineType, mc.selected)" aria-label="checkbox">
               {{cuisineType}}
             </md-checkbox>
