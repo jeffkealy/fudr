@@ -28,7 +28,7 @@ body {
   padding: 0;
   margin: 0;
 }
-#toolbar h5{
+#toolbarh5{
   padding: 0;
   margin: 0;
 }
@@ -133,16 +133,64 @@ a {
   text-decoration: none; /* no underline */
 }
 @media screen and (max-width: 600px) {
+  #toolbar h1{
+    font-size: 52px;
+    padding: 0;
+    margin: 0;
+  }
+  #toolbarh5{
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+  }
+  #toolbarUserName {
+    font-size: 10px;
+    padding: 0;
+    padding-bottom: 8px;
+    margin: 0;
+
+  }
+  #toolbarMenu{
+    margin-bottom: 7px;
+  }
+  #md-toolbar-tools{
+    height: 20px;
+  }
   .homeImage{
+    width: 100%;
     height: 275px;
     overflow: hidden;
-
   }
+
+
 }
 @media screen and (max-width: 960px) and (min-width: 601px)  {
-  .homeImage{
-    height: 250px;
-    overflow: hidden;
+  #toolbar h1{
+    font-size: 52px;
+    padding: 0;
+    margin: 0;
+  }
+  #toolbarh5{
+    font-size: 8px;
+    padding: 0;
+    margin: 0;
+  }
+  #toolbarName {
+    font-size: 12px;
+    padding: 8px;
+    margin: 0;
 
   }
+  #toolbarMenu{
+    margin-bottom: 7px;
+  }
+  #md-toolbar-tools{
+    height: 40px;
+  }
+  .homeImage{
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+  }
+
 }
