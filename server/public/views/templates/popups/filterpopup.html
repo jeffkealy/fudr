@@ -1,0 +1,36 @@
+<md-dialog aria-label="info">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools popUpHeaders" >
+        <h2>Füdr</h2>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div layout="row" layout-align="center center" layout-wrap ng-controller="FirebaseController as fbc">
+          <md-item>
+            <md-button ng-click="filterc.selectNoneButton()" layout="row" layout-align="center stretch" class="md-primary md-raised" >
+              pick none
+            </md-button>
+          </md-item>
+          <md-item>
+            <md-button ng-click="filterc.selectAllButton()" layout="row" layout-align="center stretch" class="md-primary md-raised" >
+              pick all
+            </md-button>
+          </md-item>
+      </div >
+      <div layout="row"  layout-xs="column" layout-wrap md-scroll-y flex class="checkBoxesGroup" >
+        <md-checkbox flex-sm flex-xs='100' class="checkBox" flex="20" layout="row" ng-repeat="cuisineType in filterc.cuisineTypes" ng-checked="filterc.checkBoxes(cuisineType, filterc.selected)"
+          ng-click="filterc.toggle(cuisineType, filterc.selected)" aria-label="checkbox">
+          {{cuisineType}}
+        </md-checkbox>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="column" >
+      <md-button class="md-raised md-primary" ng-click="filterc.cancel()">
+        Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

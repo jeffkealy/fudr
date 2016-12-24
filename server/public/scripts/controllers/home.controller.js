@@ -12,6 +12,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
 
 
 
+
   //get all dishes
   self.getDishes = function() {
     self.dishes = [];
@@ -80,6 +81,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
         controller: 'ToastController as TC',
         parent: angular.element(document.getElementsByClassName('homeImage'))
       }).then(function(){
+      getFavorites();
       self.yums.push(self.currentDish)
       console.log("yums",self.yums);
       self.clickedDishes.push(self.currentDish)
@@ -87,7 +89,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
       console.log(" Clicked Dishes", self.clickedDishes);
       DataFactory.yums = self.yums;
       self.cuisineTypeFilter();
-      getFavorites();
+
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
       console.log("Dishes length ", self.dishes.length);
       })
@@ -108,14 +110,12 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
         hideDelay: 150,
         controller: 'ToastController as TC',
         parent: angular.element(document.getElementsByClassName('homeImage'))
-
-
       }).then(function(){
+      getFavorites();
       self.clickedDishes.push(self.currentDish);
       self.dishes.splice(self.randomNumber,1);
       console.log(" Clicked Dishes", self.clickedDishes);
       self.cuisineTypeFilter();
-      getFavorites();
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
       console.log("Dishes length ", self.dishes.length);
       });
@@ -250,7 +250,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
               }).then(function(response){
                 self.currentDish.favorite = false;
                   getFavorites()
-                  console.log("Added dish " + self.currentDish._id + "as fav");
+                  console.log("Added dish " + self.currentDish._id + " as fav");
 
                 })
             });

@@ -31,9 +31,9 @@ app.controller('FavoritespopupController', ['$http', '$mdDialog', 'DataFactory',
      data: self.favoritesRestaurant_id
      }).then(function(response){
             self.favoritesRestaurants = response.data;
-            console.log("favoritesRestaurants", self.favoritesRestaurants);
-            console.log("Favorite dishes before loop", self.favoriteDishes);
-            console.log("restaurant_id", self.favoritesRestaurant_id);
+            // console.log("favoritesRestaurants", self.favoritesRestaurants);
+            // console.log("Favorite dishes before loop", self.favoriteDishes);
+            // console.log("restaurant_id", self.favoritesRestaurant_id);
             for (var i = 0; i < self.favoriteDishes.length; i++) {
               for (var j = 0; j < self.favoritesRestaurants.length; j++) {
                 if (self.favoriteDishes[i].restaurant_id == self.favoritesRestaurants[j]._id) {
@@ -44,21 +44,15 @@ app.controller('FavoritespopupController', ['$http', '$mdDialog', 'DataFactory',
               console.log("favoriteDishes", self.favoriteDishes);
     });
   // }
+  //Delete favoirte
+  self.deleteFavoriteButton = function(){
+    console.log("clicked");
+  }
 
   //call the functions
   // self.combineDishesAndFavorites();
   // self.getRestaurantsFromFavorites();
-  //info pop up
-  self.infoButton = function(ev){
-    $mdDialog.show({
-      controller: 'InfopopupController as ip',
-      templateUrl: '../../views/templates/popups/infopopup.html',
 
-      targetEvent: ev,
-      clickOutsideToClose:true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-    });
-  }
 
   self.cancel = function() {
     $mdDialog.cancel();

@@ -10,7 +10,7 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
     factual_id: "",
     restaurant_id: ""
   };
-  self.cuisinetypes = ["African", "American", "Asian", "Brunch", "Caribbean", "Dessert", "Fast Food", "French", "Greek", "Hot Dogs", "Ice Cream", "Indian", "Italian", "Latin American", "Mexican", "Pizza", "Sandwiches", "Seafood", "Shushi" , "Spanish"];
+  self.cuisinetypes = ["African", "American", "Asian", "Brunch", "Caribbean", "Dessert", "Fast Food", "French", "Greek", "Hot Dogs", "Ice Cream", "Indian", "Italian", "Latin American", "Mexican", "Pizza", "Sandwiches", "Seafood", "Shushi" , "Spanish", "Vegetarian"];
   self.selected = [];
   self.searchedPlace = {}
   self.placeData = DataFactory.place

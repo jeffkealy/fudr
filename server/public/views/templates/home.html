@@ -21,11 +21,13 @@
                 <span class="md-subhead">{{hc.currentRestaurant.name}}</span>
               </div>
               <div layout="row" layout-align="center">
-                <md-button class="md-primary md-raised" ng-click="hc.yumReviewButton($event)" aria-label="description" md-ripple-size="full">
+                <md-button id="yumReviewButton" class="md-primary md-icon-button" ng-click="hc.yumReviewButton($event)" aria-label="description" md-ripple-size="full">
                   <md-icon class="material-icons">history</md-icon>
                 </md-button>
               </div>
-
+              <div layout="column" layout-align="center center">
+                <p id="reviewYumsText">Review Yums</p>
+              </div>
           </md-card-title-text >
           <md-button  class="md-fab md-primary"  ng-click="hc.infoButton($event)" aria-label="yum review">
             <md-icon class="material-icons">info_outline</md-icon>

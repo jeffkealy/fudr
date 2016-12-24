@@ -4,7 +4,17 @@
 body {
   font-family: 'Varela Round', sans-serif;
 }
+#yumReviewButton{
+  padding-bottom: 0;
+  padding-top: 0;
+}
+#reviewYumsText{
+  font-size: 8px;
+  color: lightgray:
+  padding: 0;
+  margin: 0;
 
+}
 #popUpContent p, h2 {
   margin-top: 3px;
   margin-bottom: 3px;
@@ -81,6 +91,10 @@ md-bottom-sheet{
 .md-button.md-primary.md-fab.starButton{
   background-color: #edc741;
 }
+.md-button.md-primary.md-fab:not([disabled]):hover {
+    background-color: #edc741;
+}
+
 .md-headline{
   font-size: 16px;
 }

@@ -1,15 +1,18 @@
 <md-bottom-sheet flex-sm='100' flex-xs='100' class="stop-touch-event">
-  <div id="MenuToolbar">
+  <div id="MenuToolbar" layout="row" >
     <h2>Füdr</h2>
   </div>
 
   <md-subheader >
-    <h2 id="menuTitle">Menu</h2>
+    <div id="menuTitle" layout="row" layout-align="center">
+      <h2 >Menu</h2>
+    </div>
+
 
     <md-list>
-      <div class="menuContent" layout="row" layout-xs="column" felx-sx='100'>
+      <div class="menuContent" layout="row" layout-align="center center"  layout-xs="column" felx-sx='100'>
 
-        <div layout="column" layout-xs="row" layout-wrap ng-controller="FirebaseController as fbc">
+        <div layout="row" layout-align="center center" layout-wrap ng-controller="FirebaseController as fbc">
             <md-item >
               <md-button ng-click="fbc.logIn()" layout="row" layout-align="center stretch"  class="md-primary md-raised">
                 Log In
@@ -26,22 +29,11 @@
               </md-button>
             </md-item>
             <md-item>
-              <md-button ng-click="mc.selectNoneButton()" layout="row" layout-align="center stretch" class="md-primary md-raised" >
-                pick none
-              </md-button>
-            </md-item>
-            <md-item>
-              <md-button ng-click="mc.selectAllButton()" layout="row" layout-align="center stretch" class="md-primary md-raised" >
-                pick all
+              <md-button ng-click="mc.filterButton($event)" layout="row" layout-align="center stretch" class="md-primary md-raised" >
+                Filter
               </md-button>
             </md-item>
         </div >
-          <div layout="row" layout-xs="column" layout-wrap md-scroll-y flex class="checkBoxesGroup" >
-            <md-checkbox flex-sm flex-xs='100' class="checkBox" flex="20" layout="row" ng-repeat="cuisineType in mc.cuisineTypes" ng-checked="mc.checkBoxes(cuisineType, mc.selected)"
-              ng-click="mc.toggle(cuisineType, mc.selected)" aria-label="checkbox">
-              {{cuisineType}}
-            </md-checkbox>
-        </div>
 
       </div>
     </md-list>
