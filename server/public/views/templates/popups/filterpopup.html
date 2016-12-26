@@ -7,7 +7,7 @@
     </md-toolbar>
 
     <md-dialog-content>
-      <div layout="row" layout-align="center center" layout-wrap ng-controller="FirebaseController as fbc">
+      <div layout="row" layout-align="center center" layout-wrap >
           <md-item>
             <md-button ng-click="filterc.selectNoneButton()" layout="row" layout-align="center stretch" class="md-primary md-raised" >
               pick none
@@ -27,8 +27,8 @@
       </div>
     </md-dialog-content>
 
-    <md-dialog-actions layout="column" >
-      <md-button class="md-raised md-primary" ng-click="filterc.cancel()">
+    <md-dialog-actions layout="column" ng-controller="HomeController as hc">
+      <md-button class="md-raised md-primary"  ng-click="hc.cancel()">
         OK
       </md-button>
     </md-dialog-actions>

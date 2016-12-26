@@ -53,7 +53,4 @@ app.controller('FilterpopupController', ['$mdDialog', 'DataFactory', function($m
 
         });
   }
-  self.cancel = function() {
-    $mdDialog.cancel();
-  };
 }]);

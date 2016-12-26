@@ -65,6 +65,7 @@ app.controller('FavoritespopupController', ['$http', '$mdDialog', 'DataFactory',
 
             console.log("Removed dish " + self.favoriteDishes._id + " as fav"  );
 
+
           })
 
     });

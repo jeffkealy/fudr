@@ -16,7 +16,7 @@
           </div>
           <div id="popUpContent">
             <span class="md-headline"><p>{{yum.dishName}}</p> <p>at</p>  <h2>{{yum.currentRestaurant.name}}</h2></span>
-            <div layout="column">
+            <div layout="column" id="placesIconCenter">
               <a target="_blank" href="https://www.google.com/maps/place/{{yum.currentRestaurant.address}}+{{yum.currentRestaurant.locality}}+{{yum.currentRestaurant.region}}+{{yum.currentRestaurant.postcode}}/">
                 <md-icon class="material-icons place-icon">location_on</md-icon><u> <p>{{yum.currentRestaurant.address}} {{yum.currentRestaurant.locality}}, {{yum.currentRestaurant.region}} {{yum.currentRestaurant.postcode}}</p></u>
               </a>

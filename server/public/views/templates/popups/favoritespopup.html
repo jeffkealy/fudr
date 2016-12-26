@@ -18,8 +18,10 @@
             </div>
             <div id="popUpContent">
               <span class="md-headline"><p><u>{{fav.dishName}}</u></p> <p>at</p>  <h2>{{fav.restaurant.name}}</h2></span>
-              <div layout="column">
-                <p>{{fav.restaurant.address}} {{fav.restaurant.locality}}, {{fav.restaurant.region}} {{fav.restaurant.postcode}}</p>
+              <div layout="column" id="placesIconCenter">
+                <a target="_blank" href="https://www.google.com/maps/place/{{fav.restaurant.address}}+{{fav.restaurant.locality}}+{{fav.restaurant.region}}+{{fav.restaurant.postcode}}/">
+                  <md-icon  class="material-icons place-icon">location_on</md-icon><u> <p>{{fav.restaurant.address}} {{fav.restaurant.locality}}, {{fav.restaurant.region}} {{fav.restaurant.postcode}}</p></u>
+                </a>
                 <p>{{fav.restaurant.tel}}</p>
                 <p>{{fav.restaurant.hours_display}}</p>
               </div>

@@ -51,6 +51,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     // console.log("filtered dishes", self.filteredResults);
   }
 
+
   //get a random dish
   function getRandomDish(){
     self.randomNumber = randomNumberGen(0, self.dishes.length-1)
@@ -299,6 +300,14 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
       self.secretData = [];
     }
   }
+
+  //clicking the Ok button on the filter popup
+  self.cancel = function() {
+
+    $mdDialog.cancel();
+    
+
+  };
 
   //function to generate a random number
   function randomNumberGen(min, max){
