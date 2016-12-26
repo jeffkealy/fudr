@@ -6,11 +6,11 @@
       </div>
     </md-toolbar>
     <md-dialog-content>
-      <div class="md-dialog-content">
+      <div class="md-dialog-content" id="popUpContent">
 
         <h2>{{ip.currentRestaurant.name}}</h2>
         <a target="_blank" href="https://www.google.com/maps/place/{{ip.currentRestaurant.address}}+{{ip.currentRestaurant.locality}}+{{ip.currentRestaurant.region}}+{{ip.currentRestaurant.postcode}}/">
-          <div id=""><md-icon class="material-icons">location_on</md-icon></div>
+          <div id="placesIconCenter"><md-icon class="material-icons">location_on</md-icon></div>
           <u> <p>{{ip.currentRestaurant.address}} {{ip.currentRestaurant.locality}}, {{ip.currentRestaurant.region}} {{ip.currentRestaurant.postcode}}</p></u>
         </a>
         <p>{{ip.currentRestaurant.tel}}</p>
