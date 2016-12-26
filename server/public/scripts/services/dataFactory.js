@@ -4,6 +4,7 @@ app.factory('DataFactory', ['$http',function($http) {
     yums: [], //set at home.controller.js line 81
     currentRestaurant: [],
     currentDish: {},
+    firebaseUser: {},
     firebaseUserName: {},
     dishes: [], //set a home.controller.js line 23
     filteredDishes: [], //set at menu.contoller.js line 51

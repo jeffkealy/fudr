@@ -135,6 +135,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
       DataFactory.firebaseUserName.displayName = "Log In"
     } else {
       DataFactory.firebaseUserName.displayName = self.currentUser.displayName;
+      DataFactory.firebaseUser = firebaseUser;
     }
     if(firebaseUser) {
       // This is where we make our call to our server

@@ -7,8 +7,12 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
+
         <h2>{{ip.currentRestaurant.name}}</h2>
-        <p>{{ip.currentRestaurant.address}} {{ip.currentRestaurant.locality}}, {{ip.currentRestaurant.region}} {{ip.currentRestaurant.postcode}}</p>
+        <a target="_blank" href="https://www.google.com/maps/place/{{ip.currentRestaurant.address}}+{{ip.currentRestaurant.locality}}+{{ip.currentRestaurant.region}}+{{ip.currentRestaurant.postcode}}/">
+          <div id=""><md-icon class="material-icons">location_on</md-icon></div>
+          <u> <p>{{ip.currentRestaurant.address}} {{ip.currentRestaurant.locality}}, {{ip.currentRestaurant.region}} {{ip.currentRestaurant.postcode}}</p></u>
+        </a>
         <p>{{ip.currentRestaurant.tel}}</p>
         <p>{{ip.currentRestaurant.hours_display}}</p>
       </div>
