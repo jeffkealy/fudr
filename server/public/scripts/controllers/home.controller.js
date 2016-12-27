@@ -97,7 +97,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     } else {
     self.currentDish.photourl = "../../assets/sadegg.jpg";
     self.currentDish.dishName = "No More Dishes :(";
-    self.currentDish.currentRestaurant[0].name = "So Sad";
+    self.currentDish.currentRestaurant.name = "So Sad";
     }
   }
 
@@ -123,7 +123,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     } else {
       self.currentDish.photourl = "../../assets/sadegg.jpg";
       self.currentDish.dishName = "No More Dishes :(";
-      self.currentDish.currentRestaurant[0].name = "So Sad";
+      self.currentDish.currentRestaurant.name = "So Sad";
     }
   }
 
@@ -305,7 +305,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
   self.cancel = function() {
 
     $mdDialog.cancel();
-    
+
 
   };
 
