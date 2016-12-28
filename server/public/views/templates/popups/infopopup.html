@@ -8,7 +8,9 @@
     <md-dialog-content>
       <div class="md-dialog-content" id="popUpContent">
 
-        <h2>{{ip.currentRestaurant.name}}</h2>
+        <a target="_blank" href="https://www.google.com/#safe=strict&q={{ip.currentRestaurant.name}}+{{ip.currentRestaurant.locality}}">
+          <div id="placesIconCenter"><md-icon class="material-icons">search</md-icon></div>
+          <h2> <u> {{ip.currentRestaurant.name}}</u></h2></a>
         <a target="_blank" href="https://www.google.com/maps/place/{{ip.currentRestaurant.address}}+{{ip.currentRestaurant.locality}}+{{ip.currentRestaurant.region}}+{{ip.currentRestaurant.postcode}}/">
           <div id="placesIconCenter"><md-icon class="material-icons">location_on</md-icon></div>
           <u> <p>{{ip.currentRestaurant.address}} {{ip.currentRestaurant.locality}}, {{ip.currentRestaurant.region}} {{ip.currentRestaurant.postcode}}</p></u>
