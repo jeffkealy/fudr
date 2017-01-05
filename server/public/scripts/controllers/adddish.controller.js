@@ -46,11 +46,11 @@ app.controller('AdddishController', ['$http', 'DataFactory', function($http, Dat
     console.log("new dish after click", self.newDish);
     console.log("new restaurant info: ", self.placeData);
     // console.log("you stopped the post call because you need to fix restaurant_id");
-    // $http.post('dishes/dish', self.newDish)
-    //   .then(function(response){
-    //     console.log("added Dish");
-    //     self.newDish={};
-    //   })
+    $http.post('dishes/dish', self.newDish)
+      .then(function(response){
+        console.log("added Dish");
+        self.newDish={};
+      })
   }
 
 
