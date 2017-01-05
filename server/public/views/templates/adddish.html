@@ -3,9 +3,14 @@
     <div layout="column">
       <md-card-title>
           <md-card-title-text>
-            <span><h1>Add A Dish To The Site For:</h1></span>
-            <span class="md-headline">{{ad.placeData.name}}</span>
-            <span class="md-subhead">{{ad.placeData.address}} {{ad.placeData.placeObj.locality}}</span>
+            <span class="md-headline"><h1>Add A Dish To The Site For:</h1></span>
+            <div>
+              <span editable-text="ad.placeData.name" e-label="User Name" class="md-subhead"><p>Restaurant Name: </p> {{ad.placeData.name}}</span>
+            </div>
+            <div  class="md-subhead">
+              <span editable-text="ad.placeData.address" e-label="Address">{{ad.placeData.address}}</span>
+              <span editable-text="ad.placeData.locality" e-label="City">{{ad.placeData.locality}}</span>
+            </div>
           <md-card-title-text>
       <md-card-title>
     </div>

@@ -2,7 +2,7 @@ app.controller('FilterpopupController', ['$mdDialog', 'DataFactory', function($m
   var self = this;
   self.currentDish = DataFactory.currentDish
   self.selected = DataFactory.cuisineTypesSelected;
-  self.cuisineTypes = DataFactory.cuisineTypes;
+  self.cuisineTypes = DataFactory.cuisineTypes.slice();
 
 
   //select None
@@ -12,13 +12,17 @@ app.controller('FilterpopupController', ['$mdDialog', 'DataFactory', function($m
   }
   //select All
   self.selectAllButton = function(){
-      DataFactory.cuisineTypesSelected = DataFactory.cuisineTypes
-      self.selected = DataFactory.cuisineTypes;
+    // DataFactory.cuisineTypesSelected = DataFactory.cuisineTypes
+    self.selected = DataFactory.cuisineTypes.slice();
+    DataFactory.cuisineTypesSelected = DataFactory.cuisineTypes.slice()
+
+
+    console.log("self.selected", self.selected);
+    console.log("DataFactory.cuisineTypesSelected", DataFactory.cuisineTypesSelected);
   }
 
   //toggle checkboxes
   self.toggle = function(cuisinetype, list){
-
     var indx = list.indexOf(cuisinetype);
         if (indx > -1) {
           list.splice(indx, 1);
