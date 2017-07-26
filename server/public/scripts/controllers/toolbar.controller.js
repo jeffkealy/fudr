@@ -11,6 +11,8 @@ app.controller('ToolbarController', ['$http', '$mdDialog', "$mdBottomSheet", 'Da
       controller: 'MenuController as mc',
       parent: angular.element(document.body),
       clickOutsideToClose: true
+    }).then(function(){
+      DataFactory.getRandomDish();
     });
   }
 

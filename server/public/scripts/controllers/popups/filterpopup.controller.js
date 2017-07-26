@@ -53,7 +53,7 @@ app.controller('FilterpopupController', ['$mdDialog', 'DataFactory', function($m
     }).then(function(response) {
           self.filterTypesReturnedFromMyDb = response.data;
           console.log("filter types returned", self.filterTypesReturnedFromMyDb);
-          DataFactory.filteredDishes = self.filterTypesReturnedFromMyDb
+          DataFactory.filteredDishes = self.filterTypesReturnedFromMyDb;
 
         });
   }

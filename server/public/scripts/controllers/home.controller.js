@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebaseAuth', '$mdToast', function($http, $mdDialog, DataFactory, $firebaseAuth, $mdToast){
+app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFactory', '$firebaseAuth', '$mdToast', '$scope', function($http, $mdDialog, DataFactory, FoodFactory, $firebaseAuth, $mdToast, $scope){
   var self = this;
   self.dishes = [];
   self.yums = [];
@@ -12,25 +12,14 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
 
 
 
-
   //get all dishes
-  self.getDishes = function() {
-    self.dishes = [];
-    $http.get('/dishes/dishes')
-      .then(function(response) {
-        self.filteredResults = response.data;
-        self.dishes = response.data;
-        DataFactory.dishes = response.data
-        // console.log("INITIAL GET", self.dishes);
-        self.cuisineTypeFilter();
-
-    });
-  }
-
-  self.getDishes();//runs once on page load
+  FoodFactory.factory.getDishes().then(function(response){
+    self.dishes = response.allDishes;
+    cuisineTypeFilter();
+  });
 
   //filter results
-  self.cuisineTypeFilter = function(){
+  function cuisineTypeFilter(){
     self.filteredResults = [];
     for (var i = 0; i < self.dishes.length; i++) {
       var addToFilteredList = false;
@@ -48,7 +37,6 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
     }
     self.dishes =  self.filteredResults
     getRandomDish();
-    // console.log("filtered dishes", self.filteredResults);
   }
 
 
@@ -56,18 +44,18 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
   function getRandomDish(){
     self.randomNumber = randomNumberGen(0, self.dishes.length-1)
     self.currentDish = self.dishes[self.randomNumber];
-
-    self.getRestaurant();
+    console.log("current Dish", self.currentDish);
+    getRestaurant();
   }
 
+
   //get current restaurant assisiated with dish id from DB
-  self.getRestaurant = function(){
+  function getRestaurant(){
     $http.get('/dishes/currentRestaurantfromDb/' + self.currentDish.restaurant_id )
       .then(function(response) {
         self.currentRestaurant = response.data;
         DataFactory.currentRestaurant = self.currentRestaurant;
         self.currentDish.currentRestaurant = self.currentRestaurant;
-        console.log("current dish and restaurant", self.currentDish);
       });
   }
 
@@ -89,7 +77,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
       self.dishes.splice(self.randomNumber,1);
       console.log(" Clicked Dishes", self.clickedDishes);
       DataFactory.yums = self.yums;
-      self.cuisineTypeFilter();
+      cuisineTypeFilter();
 
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
       console.log("Dishes length ", self.dishes.length);
@@ -116,7 +104,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
       self.clickedDishes.push(self.currentDish);
       self.dishes.splice(self.randomNumber,1);
       console.log(" Clicked Dishes", self.clickedDishes);
-      self.cuisineTypeFilter();
+      cuisineTypeFilter();
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
       console.log("Dishes length ", self.dishes.length);
       });
@@ -171,7 +159,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
 
         targetEvent: ev,
         clickOutsideToClose:true,
-        fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+        fullscreen: true // Only for -xs, -sm breakpoints.
       });
     }
   }
@@ -184,7 +172,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
 
       targetEvent: ev,
       clickOutsideToClose:true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+      fullscreen: true // Only for -xs, -sm breakpoints.
     });
   }
 
@@ -303,11 +291,10 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', '$firebas
 
   //clicking the Ok button on the filter popup
   self.cancel = function() {
-
+    getRandomDish();
     $mdDialog.cancel();
-
-
   };
+
 
   //function to generate a random number
   function randomNumberGen(min, max){
