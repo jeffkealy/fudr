@@ -4,14 +4,14 @@
   <md-button hide-xs ng-click="hc.nawButton()"><h1>Naw</h1></md-button>
     <div class="card" layout="row" layout-xs="row" flex-sm="70" layout-align="center start" >
       <md-card flex-sm='100' flex-xs='100' class="md-whiteframe-13dp" >
-        <md-card-header  >
-            <div class="homeImage"  layout="column" layout-align="center center" >
-              <img ng-swipe-right="hc.yumButton()" ng-swipe-left="hc.nawButton()" ng-src="{{hc.currentDish.photourl}}" class="md-card-image" >
+        <md-card-header class="home-card">
+            <div class="homeImage"  layout="column" layout-align="start center" style="background-image: url({{hc.currentDish.photourl}});">
+              <!-- <img ng-swipe-right="hc.yumButton()" ng-swipe-left="hc.nawButton()" ng-src="{{hc.currentDish.photourl}}" class="md-card-image" > -->
             </div>
+                <!-- <ng-swippy collection='hc.dishes'  data='showinfo' collection-empty='swipeend' swipe-left='hc.nawButton()'  swipe-right='hc.yumButton()' cards-number='2' label-ok='Yum!' label-negative='Naw!'></ng-swippy> -->
                 <!-- md-swipe-right="hc.yumButton()" md-swipe-left="hc.nawButton()" -->
-
         </md-card-header>
-        <md-card-title id="homeCardTitle">
+        <md-card-title class="card-title">
           <md-button  ng-class="{'starButton': hc.currentDish.favorite}" class="md-fab md-primary" aria-label="Favorite" ng-click="hc.addFavoriteButton()">
             <md-icon class="material-icons">star_border</md-icon>
           </md-button>
@@ -32,12 +32,9 @@
         </md-card-title>
       </md-card>
   </div>
-
-
   <div hide show-xs  layout="row">
     <md-button flex ng-click="hc.nawButton()"><h1>Naw</h1></md-button>
     <md-button flex ng-click="hc.yumButton()"><h1>Yum!</h1></md-button>
   </div>
   <md-button hide-xs ng-click="hc.yumButton()"><h1>Yum!</h1></md-button>
-
 </div>

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/angular-material.min.css">
     <link rel="stylesheet" href="styles/xeditable.min.css">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/ngswippy.css">
     <!-- AngularJS -->
     <script type="text/javascript" src="vendors/angular.min.js"></script>
     <script type="text/javascript" src="vendors/angular-route.min.js"></script>
@@ -17,13 +18,14 @@
     <script type="text/javascript" src="vendors/angular-material.min.js"></script>
     <script type="text/javascript" src="vendors/angular-touch.min.js"></script>
     <script type="text/javascript" src="vendors/xeditable.min.js"></script>
+    <script type="text/javascript" src="vendors/ng-swippy.js"></script>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
-
+    <!-- APP -->
     <script type="text/javascript" src="/scripts/client.js"></script>
-    <script type="text/javascript" src="/scripts/services/dataFactory.js"></script>
+    <!-- CONTROLLERS -->
     <script type="text/javascript" src="/scripts/controllers/home.controller.js"></script>
     <script type="text/javascript" src="/scripts/controllers/adddish.controller.js"></script>
     <script type="text/javascript" src="/scripts/controllers/searchdish.controller.js"></script>
@@ -31,29 +33,37 @@
     <script type="text/javascript" src="/scripts/controllers/toolbar.controller.js"></script>
     <script type="text/javascript" src="/scripts/controllers/popups/menu.controller.js"></script>
     <script type="text/javascript" src="/scripts/controllers/popups/yumreviewpopup.controller.js"></script>
-    <script type="text/javascript" src="/scripts/firebase/firebase.client.js"></script>
-    <script type="text/javascript" src="/scripts/firebase/firebase-config.js"></script>
     <script type="text/javascript" src="/scripts/controllers/popups/favorites.popup.controller.js"></script>
     <script type="text/javascript" src="/scripts/controllers/popups/toast.controller.js"></script>
     <script type="text/javascript" src="/scripts/controllers/popups/filterpopup.controller.js"></script>
 
+    <!-- SERVICES -->
+    <script type="text/javascript" src="/scripts/services/dataFactory.js"></script>
+    <script type="text/javascript" src="/scripts/services/food-factory.js"></script>
+    <!-- FIREBASE JS -->
+    <script type="text/javascript" src="/scripts/firebase/firebase.client.js"></script>
+    <script type="text/javascript" src="/scripts/firebase/firebase-config.js"></script>
+
   </head>
   <body ng-app="myApp" ng-controller="HomeController as hc">
-    <div hide-sm hide-xs >
-      <md-toolbar class="md-tall" id="toolbar"  ng-controller="ToolbarController as tc">
-          <div class="md-toolbar-tools" id="md-toolbar-tools" layout="row" layout-align="center" layout-xs="row" layout-align-xs="start" layout-xs="column" >
-              <div layout="column">
-                <h1><a href="#home">Füdr</a></h1>
-                <h5 id="toolbarh5" >Where To Go For Dinner</h5>
-              </div>
+    <div hide-sm hide-xs layout="row" ng-controller="ToolbarController as tc">
+      <md-toolbar id="toolbar" >
+        <div layout="row" layout-align="center center">
+          <span flex="35"></span>
+          <div  flex='33' layout="row" layout-align="center" layout-xs="row" layout-align-xs="start" layout-xs="column" >
+            <div layout="column" class="toolbar-title">
+              <h1><a href="#home">Füdr</a></h1>
+              <h5 id="toolbarh5" >Where To Go For Dinner</h5>
+            </div>
           </div>
-          <span ></span>
-          <div layout="row" layout-align="end center" layout-sm="column" layout-align-sm="space-between end"  layout-xs="column" layout-align-xs="space-between end" >
+          <span flex></span>
+          <div class="toolbar-name-menu-button" layout="row" layout-align="end center" layout-sm="column" layout-align-sm="space-between end"  layout-xs="column" layout-align-xs="space-between end" >
             <p id=toolbarName ng-click="tc.logIn()" ><a href="">{{tc.firebaseUserName.displayName}}</a> </p>
             <md-button id="toolbarButton" class="md-raised md-primary" ng-click="tc.menuClick()" >
               <md-icon class="material-icons" aria-lable="Menu">menu</md-icon>
             </md-button>
           </div>
+        </div>
       </md-toolbar>
     </div>
     <!-- Landscape Menu -->
