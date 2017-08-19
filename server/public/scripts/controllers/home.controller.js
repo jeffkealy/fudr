@@ -4,8 +4,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
   self.yums = [];
   self.clickedDishes=[];
   self.clickedDish ={};
-  self.currentRestaurant = {};
-  self.currentDish = {};
+  self.currentRestaurant = DataFactory.currentRestaurant;
   self.randomNumber = 0;
   var auth = $firebaseAuth();
   self.filteredResults = []
@@ -14,50 +13,54 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
 
   //get all dishes
   FoodFactory.factory.getDishes().then(function(response){
-    self.dishes = response.allDishes;
-    cuisineTypeFilter();
+    self.dishes = DataFactory.dishes;
+    self.currentDish = DataFactory.currentDish
+    $scope.currentDish = DataFactory.currentDish
+
+
+    // cuisineTypeFilter();
   });
 
   //filter results
-  function cuisineTypeFilter(){
-    self.filteredResults = [];
-    for (var i = 0; i < self.dishes.length; i++) {
-      var addToFilteredList = false;
-      for (var j = 0; j < self.dishes[i].cuisinetype.length; j++) {
-        for (var k = 0; k < DataFactory.cuisineTypesSelected.length; k++) {
-          if (self.dishes[i].cuisinetype[j]== DataFactory.cuisineTypesSelected[k]) {
-            addToFilteredList = true;
-          }
-        }
-      }
-      if( addToFilteredList == true){
-
-        self.filteredResults.push(self.dishes[i]);
-      }
-    }
-    self.dishes =  self.filteredResults
-    getRandomDish();
-  }
-
-
-  //get a random dish
-  function getRandomDish(){
-    self.randomNumber = randomNumberGen(0, self.dishes.length-1)
-    self.currentDish = self.dishes[self.randomNumber];
-    console.log("current Dish", self.currentDish);
-    getRestaurant();
-  }
+  // function cuisineTypeFilter(){
+  //   self.filteredResults = [];
+  //   for (var i = 0; i < self.dishes.length; i++) {
+  //     var addToFilteredList = false;
+  //     for (var j = 0; j < self.dishes[i].cuisinetype.length; j++) {
+  //       for (var k = 0; k < DataFactory.cuisineTypesSelected.length; k++) {
+  //         if (self.dishes[i].cuisinetype[j]== DataFactory.cuisineTypesSelected[k]) {
+  //           addToFilteredList = true;
+  //         }
+  //       }
+  //     }
+  //     if( addToFilteredList == true){
+  //
+  //       self.filteredResults.push(self.dishes[i]);
+  //     }
+  //   }
+  //   self.dishes =  self.filteredResults
+  //   getRandomDish();
+  // }
 
 
-  //get current restaurant assisiated with dish id from DB
-  function getRestaurant(){
-    $http.get('/dishes/currentRestaurantfromDb/' + self.currentDish.restaurant_id )
-      .then(function(response) {
-        self.currentRestaurant = response.data;
-        DataFactory.currentRestaurant = self.currentRestaurant;
-        self.currentDish.currentRestaurant = self.currentRestaurant;
-      });
-  }
+  // //get a random dish
+  // function getRandomDish(){
+  //   self.randomNumber = randomNumberGen(0, self.dishes.length-1)
+  //   self.currentDish = self.dishes[self.randomNumber];
+  //   console.log("current Dish", self.currentDish);
+  //   getRestaurant();
+  // }
+  //
+  //
+  // //get current restaurant assisiated with dish id from DB
+  // function getRestaurant(){
+  //   $http.get('/dishes/currentRestaurantfromDb/' + self.currentDish.restaurant_id )
+  //     .then(function(response) {
+  //       self.currentRestaurant = response.data;
+  //       DataFactory.currentRestaurant = self.currentRestaurant;
+  //       self.currentDish.currentRestaurant = self.currentRestaurant;
+  //     });
+  // }
 
   //Yum button clicked
   self.yumButton = function(ev){
@@ -66,7 +69,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
       $mdToast.show({
         template: '<md-toast flex><span class="md-toast-text" flex>Yum! That Looks Good!</span></md-toast>' ,
         position:'top',
-        hideDelay: 150,
+        hideDelay: 80,
         controller: 'ToastController as TC',
         parent: angular.element(document.getElementsByClassName('homeImage'))
       }).then(function(){
@@ -74,13 +77,13 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
       self.yums.push(self.currentDish)
       console.log("yums",self.yums);
       self.clickedDishes.push(self.currentDish)
-      self.dishes.splice(self.randomNumber,1);
+      DataFactory.dishes.splice(DataFactory.randomNumber,1);
       console.log(" Clicked Dishes", self.clickedDishes);
       DataFactory.yums = self.yums;
-      cuisineTypeFilter();
+      self.currentDish = FoodFactory.factory.cuisineTypeFilter()
 
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
-      console.log("Dishes length ", self.dishes.length);
+      console.log("Dishes length ", DataFactory.dishes.length);
       })
     } else {
     self.currentDish.photourl = "../../assets/sadegg.jpg";
@@ -96,7 +99,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
       $mdToast.show({
         template: '<md-toast flex><span class="md-toast-text" flex>Naw, Not Feeling It</span></md-toast>' ,
         position:'bottom',
-        hideDelay: 150,
+        hideDelay: 80,
         controller: 'ToastController as TC',
         parent: angular.element(document.getElementsByClassName('homeImage'))
       }).then(function(){
@@ -104,7 +107,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
       self.clickedDishes.push(self.currentDish);
       self.dishes.splice(self.randomNumber,1);
       console.log(" Clicked Dishes", self.clickedDishes);
-      cuisineTypeFilter();
+      self.currentDish = FoodFactory.factory.cuisineTypeFilter();
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
       console.log("Dishes length ", self.dishes.length);
       });
@@ -291,6 +294,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
 
   //clicking the Ok button on the filter popup
   self.cancel = function() {
+    console.log("click");
     getRandomDish();
     $mdDialog.cancel();
   };

@@ -1,4 +1,4 @@
-app.controller('FilterpopupController', ['$mdDialog', 'DataFactory', function($mdDialog, DataFactory){
+app.controller('FilterpopupController', ['$mdDialog', 'DataFactory','FoodFactory', '$scope',  function($mdDialog, DataFactory, FoodFactory, $scope){
   var self = this;
   self.currentDish = DataFactory.currentDish
   self.selected = DataFactory.cuisineTypesSelected;
@@ -57,4 +57,12 @@ app.controller('FilterpopupController', ['$mdDialog', 'DataFactory', function($m
 
         });
   }
+
+  //clicking the Ok button on the filter popup
+  self.cancel = function() {
+    $mdDialog.hide({});
+    $scope.currentDish = FoodFactory.factory.cuisineTypeFilter()
+
+  };
+
 }]);

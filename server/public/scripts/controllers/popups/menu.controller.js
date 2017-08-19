@@ -1,4 +1,4 @@
-app.controller('MenuController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataFactory',  function($http, $mdDialog, $mdBottomSheet, DataFactory){
+app.controller('MenuController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataFactory', 'FoodFactory', '$scope', function($http, $mdDialog, $mdBottomSheet, DataFactory, FoodFactory, $scope){
   var self = this;
 
   //favorites button. pop-up favorites
@@ -19,10 +19,16 @@ app.controller('MenuController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataF
       templateUrl: '../../views/templates/popups/filterpopup.html',
       targetEvent: ev,
       clickOutsideToClose:true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+      fullscreen: false, // Only for -xs, -sm breakpoints.
+      preserveScope: true
     });
   }
 
 
+  self.closeMenu = function(){
+
+
+    $mdBottomSheet.hide()
+  }
 
 }]);
