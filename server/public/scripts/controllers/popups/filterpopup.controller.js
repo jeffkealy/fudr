@@ -1,4 +1,4 @@
-app.controller('FilterpopupController', ['$mdDialog', 'DataFactory','FoodFactory', '$scope',  function($mdDialog, DataFactory, FoodFactory, $scope){
+app.controller('FilterpopupController', ['$mdDialog', 'DataFactory','FoodFactory', '$scope', '$rootScope','$mdBottomSheet',   function($mdDialog, DataFactory, FoodFactory, $scope, $rootScope, $mdBottomSheet){
   var self = this;
   self.currentDish = DataFactory.currentDish
   self.selected = DataFactory.cuisineTypesSelected;
@@ -57,11 +57,15 @@ app.controller('FilterpopupController', ['$mdDialog', 'DataFactory','FoodFactory
 
         });
   }
-
+  $scope.childmethod = function(){
+    console.log("childmethod");
+    $rootScope.$emit("callParentMethod", {});
+  }
   //clicking the Ok button on the filter popup
-  self.cancel = function() {
+  self.okButton = function() {
+    console.log("Filter OK Clicked");
     $mdDialog.hide({});
-    $scope.currentDish = FoodFactory.factory.cuisineTypeFilter()
+    $scope.childmethod();
 
   };
 

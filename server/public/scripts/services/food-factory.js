@@ -75,6 +75,10 @@ function foodFactory($http, DataFactory){
   function randomNumberGen(min, max){
       return Math.floor(Math.random() * (1 + max - min) + min);
   }
+  //fucntion to do scope.apply on home controller
+  function scopeApplyOnHc(){
+    console.log("scope.apply");
+  }
 
   return {
     factory:
@@ -91,6 +95,9 @@ function foodFactory($http, DataFactory){
       },
       getRestaurant: function(){
       return getRestaurant();
+      },
+      scopeApplyOnHc: function(){
+      return scopeApplyOnHc();
       }
     }
   }

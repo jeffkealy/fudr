@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFactory', '$firebaseAuth', '$mdToast', '$scope', function($http, $mdDialog, DataFactory, FoodFactory, $firebaseAuth, $mdToast, $scope){
+app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFactory', '$firebaseAuth', '$mdToast', '$scope', '$rootScope', function($http, $mdDialog, DataFactory, FoodFactory, $firebaseAuth, $mdToast, $scope, $rootScope){
   var self = this;
   self.dishes = [];
   self.yums = [];
@@ -20,6 +20,15 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
 
     // cuisineTypeFilter();
   });
+  $rootScope.$on("callParentMethod", function(){
+    console.log("parentmethod");
+    $scope.parentmethod();
+  })
+
+  $scope.parentmethod = function(){
+    console.log("HC $scope.apply");
+    FoodFactory.factory.cuisineTypeFilter();
+  };
 
   //filter results
   // function cuisineTypeFilter(){
@@ -81,7 +90,6 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
       console.log(" Clicked Dishes", self.clickedDishes);
       DataFactory.yums = self.yums;
       self.currentDish = FoodFactory.factory.cuisineTypeFilter()
-
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
       console.log("Dishes length ", DataFactory.dishes.length);
       })
@@ -107,7 +115,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
       self.clickedDishes.push(self.currentDish);
       self.dishes.splice(self.randomNumber,1);
       console.log(" Clicked Dishes", self.clickedDishes);
-      self.currentDish = FoodFactory.factory.cuisineTypeFilter();
+      FoodFactory.factory.cuisineTypeFilter();
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
       console.log("Dishes length ", self.dishes.length);
       });
@@ -294,9 +302,8 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
 
   //clicking the Ok button on the filter popup
   self.cancel = function() {
-    console.log("click");
     getRandomDish();
-    $mdDialog.cancel();
+    $mdDialog.hide({});
   };
 
 
