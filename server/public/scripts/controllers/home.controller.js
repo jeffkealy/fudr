@@ -27,7 +27,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
 
   $scope.parentmethod = function(){
     console.log("HC $scope.apply");
-    FoodFactory.factory.cuisineTypeFilter();
+    self.currentDish = FoodFactory.factory.cuisineTypeFilter();
   };
 
   //filter results

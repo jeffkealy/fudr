@@ -59,7 +59,7 @@ app.controller('FilterpopupController', ['$mdDialog', 'DataFactory','FoodFactory
   }
   $scope.childmethod = function(){
     console.log("childmethod");
-    $rootScope.$emit("callParentMethod", {});
+    $rootScope.$broadcast("callParentMethod", {});
   }
   //clicking the Ok button on the filter popup
   self.okButton = function() {

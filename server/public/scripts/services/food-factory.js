@@ -44,7 +44,7 @@ function foodFactory($http, DataFactory){
         DataFactory.filteredResults.push(DataFactory.dishes[i]);
       }
     }
-    DataFactory.dishes =  DataFactory.filteredResults
+    // DataFactory.dishes =  DataFactory.filteredResults
     console.log("cuisineTypeFilter", DataFactory.dishes);
 
     return getRandomDish();
@@ -53,8 +53,8 @@ function foodFactory($http, DataFactory){
 
   //get a random dish
   function getRandomDish(){
-    DataFactory.randomNumber = randomNumberGen(0, DataFactory.dishes.length-1)
-    DataFactory.currentDish = DataFactory.dishes[DataFactory.randomNumber];
+    DataFactory.randomNumber = randomNumberGen(0, DataFactory.filteredResults.length-1)
+    DataFactory.currentDish = DataFactory.filteredResults[DataFactory.randomNumber];
     console.log("current Dish", DataFactory.currentDish);
     getRestaurant();
     return DataFactory.currentDish
