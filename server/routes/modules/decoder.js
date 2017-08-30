@@ -14,13 +14,12 @@ var firebaseServices = {
 }
 
 if (process.env.project_id != undefined) {
-  firebaseServiceAccount = firebaseServices
+  firebaseServiceAccount = firebaseServices;
 } else {
   firebaseServiceAccount = "/Users/jeffkealy/Documents/Prime/Fudr/server/firebase-service-account.json";
 }
 
 
-console.log(firebaseServiceAccount);
 admin.initializeApp({
   credential: admin.credential.cert(firebaseServiceAccount),
   databaseURL: "https://fudr-26af4.firebaseio.com" // replace this line with your URL
