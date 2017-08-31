@@ -8,7 +8,7 @@ app.controller('MenuController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataF
       templateUrl: '../../views/templates/popups/favoritespopup.html',
       targetEvent: ev,
       clickOutsideToClose:true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+      fullscreen: true // Only for -xs, -sm breakpoints.
 
     });
   }
@@ -20,7 +20,7 @@ app.controller('MenuController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataF
       templateUrl: '../../views/templates/popups/filterpopup.html',
       targetEvent: ev,
       clickOutsideToClose:true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+      fullscreen: true // Only for -xs, -sm breakpoints.
     });
     $mdBottomSheet.hide();
 
