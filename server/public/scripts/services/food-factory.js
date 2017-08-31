@@ -44,8 +44,10 @@ function foodFactory($http, DataFactory){
         DataFactory.filteredResults.push(DataFactory.dishes[i]);
       }
     }
-    DataFactory.dishes =  DataFactory.filteredResults
-    console.log("cuisineTypeFilter", DataFactory.dishes);
+    // DataFactory.dishes =  DataFactory.filteredResults
+    console.log("DataFactory.dishes", DataFactory.dishes);
+    console.log("filetered reslults", DataFactory.filteredResults);
+
 
     return getRandomDish();
 
@@ -53,8 +55,8 @@ function foodFactory($http, DataFactory){
 
   //get a random dish
   function getRandomDish(){
-    DataFactory.randomNumber = randomNumberGen(0, DataFactory.dishes.length-1)
-    DataFactory.currentDish = DataFactory.dishes[DataFactory.randomNumber];
+    DataFactory.randomNumber = randomNumberGen(0, DataFactory.filteredResults.length-1)
+    DataFactory.currentDish = DataFactory.filteredResults[DataFactory.randomNumber];
     console.log("current Dish", DataFactory.currentDish);
     getRestaurant();
     return DataFactory.currentDish
@@ -75,10 +77,7 @@ function foodFactory($http, DataFactory){
   function randomNumberGen(min, max){
       return Math.floor(Math.random() * (1 + max - min) + min);
   }
-  //fucntion to do scope.apply on home controller
-  function scopeApplyOnHc(){
-    console.log("scope.apply");
-  }
+
 
   return {
     factory:

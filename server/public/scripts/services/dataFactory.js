@@ -1,15 +1,15 @@
 app.factory('DataFactory', ['$http',function($http) {
   var placeObj = {
-    place: {}, //place clicked from searchdish.conroller.js at 23, then adddish.controller.js at 59
-    yums: [], //set at home.controller.js line 81
+    place: {},
+    yums: [],
     currentRestaurant: [],
     currentDish: {},
-    dishes: [], //set a home.controller.js line 23
+    dishes: [],
     firebaseUser: {},
     firebaseUserName: {},
-    filteredDishes: [], //set at menu.contoller.js line 51
+    filteredDishes: [],
     filteredResults: [],
-    favorites: [], //set at home.contoller.js line 269
+    favorites: [], 
     cuisineTypes: ["African", "American", "Asian", "Brunch", "Burger", "Caribbean", "Dessert", "Fast Food", "French", "Greek", "Hot Dogs", "Indian", "Italian", "Latin American", "Mexican", "Pizza", "Sandwich", "Seafood", "Shushi" , "Spanish", "Vegetarian"],
     cuisineTypesSelected: ["African", "American", "Asian", "Brunch", "Burger", "Caribbean", "Dessert", "Fast Food", "French", "Greek", "Hot Dogs", "Indian", "Italian", "Latin American", "Mexican", "Pizza", "Sandwich", "Seafood", "Shushi", "Spanish", "Vegetarian"],
     randomNumber: 0

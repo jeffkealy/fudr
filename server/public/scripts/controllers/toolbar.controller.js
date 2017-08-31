@@ -9,8 +9,9 @@ app.controller('ToolbarController', ['$http', '$mdDialog', "$mdBottomSheet", 'Da
     $mdBottomSheet.show({
       templateUrl: "../../views/templates/popups/menu.html",
       controller: 'MenuController as mc',
-      parent: angular.element(document.body),
-      clickOutsideToClose: true
+      // parent: angular.element(document.getElementById('homeContainter')),
+      clickOutsideToClose: true,
+      disableParentScroll: true
     });
   }
 

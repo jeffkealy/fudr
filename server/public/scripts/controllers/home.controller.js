@@ -27,7 +27,7 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
 
   $scope.parentmethod = function(){
     console.log("HC $scope.apply");
-    FoodFactory.factory.cuisineTypeFilter();
+    self.currentDish = FoodFactory.factory.cuisineTypeFilter();
   };
 
   //filter results
@@ -61,19 +61,11 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
   // }
   //
   //
-  // //get current restaurant assisiated with dish id from DB
-  // function getRestaurant(){
-  //   $http.get('/dishes/currentRestaurantfromDb/' + self.currentDish.restaurant_id )
-  //     .then(function(response) {
-  //       self.currentRestaurant = response.data;
-  //       DataFactory.currentRestaurant = self.currentRestaurant;
-  //       self.currentDish.currentRestaurant = self.currentRestaurant;
-  //     });
-  // }
+
 
   //Yum button clicked
   self.yumButton = function(ev){
-    if(self.dishes.length > 1 ){
+    if(DataFactory.filteredResults.length > 1 ){
       //pop up toast message
       $mdToast.show({
         template: '<md-toast flex><span class="md-toast-text" flex>Yum! That Looks Good!</span></md-toast>' ,
@@ -83,14 +75,17 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
         parent: angular.element(document.getElementsByClassName('homeImage'))
       }).then(function(){
       getFavorites();
+      removeDish();
       self.yums.push(self.currentDish)
       console.log("yums",self.yums);
       self.clickedDishes.push(self.currentDish)
-      DataFactory.dishes.splice(DataFactory.randomNumber,1);
-      console.log(" Clicked Dishes", self.clickedDishes);
+      DataFactory.filteredResults.splice(DataFactory.randomNumber,1);
+      console.log("Clicked Dishes", self.clickedDishes);
+      console.log("filtered dishes", DataFactory.filteredResults);
       DataFactory.yums = self.yums;
-      self.currentDish = FoodFactory.factory.cuisineTypeFilter()
-      console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
+      self.currentDish = FoodFactory.factory.getRandomDish()
+      console.log("CLICKED dishes length ", self.clickedDishes.length);
+      console.log("FILTERED dishes length ", self.filteredResults.length);
       console.log("Dishes length ", DataFactory.dishes.length);
       })
     } else {
@@ -112,17 +107,32 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
         parent: angular.element(document.getElementsByClassName('homeImage'))
       }).then(function(){
       getFavorites();
+      removeDish();
+
       self.clickedDishes.push(self.currentDish);
-      self.dishes.splice(self.randomNumber,1);
-      console.log(" Clicked Dishes", self.clickedDishes);
-      FoodFactory.factory.cuisineTypeFilter();
+      DataFactory.filteredResults.splice(DataFactory.randomNumber,1);
+      console.log("Clicked Dishes", self.clickedDishes);
+      console.log("filtered dishes", DataFactory.filteredResults);
+      self.currentDish = FoodFactory.factory.getRandomDish();
       console.log("CLICK total clicked dishes length ", self.clickedDishes.length);
-      console.log("Dishes length ", self.dishes.length);
+      console.log("FILTERED total clicked dishes length ", self.filteredResults.length);
+      console.log("Dishes length ", DataFactory.dishes.length);
       });
     } else {
       self.currentDish.photourl = "../../assets/sadegg.jpg";
       self.currentDish.dishName = "No More Dishes :(";
       self.currentDish.currentRestaurant.name = "So Sad";
+    }
+  }
+
+  //function to remove dish from full dish list
+  function removeDish(){
+    for (var i = 0; i < DataFactory.dishes.length; i++) {
+      if (DataFactory.dishes[i]._id == self.currentDish._id ) {
+        console.log("Removed from Dish list", DataFactory.dishes[i]);
+        DataFactory.dishes.splice(i,1)
+        break;
+      }
     }
   }
 
@@ -306,10 +316,5 @@ app.controller('HomeController', ['$http', '$mdDialog', 'DataFactory', 'FoodFact
     $mdDialog.hide({});
   };
 
-
-  //function to generate a random number
-  function randomNumberGen(min, max){
-      return Math.floor(Math.random() * (1 + max - min) + min);
-  }
 
 }]);

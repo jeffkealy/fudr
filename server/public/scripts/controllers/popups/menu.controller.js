@@ -25,7 +25,9 @@ app.controller('MenuController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataF
     $mdBottomSheet.hide();
 
   }
+  self.closeMenu = function(){
+    $mdBottomSheet.hide();
 
-
+  }
 
 }]);
