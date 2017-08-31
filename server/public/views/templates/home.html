@@ -1,5 +1,5 @@
 
-<div class="container" layout="row"  layout-xs="column"  layout-align="center">
+<div id="homeContainter" class="container" layout="row"  layout-xs="column"  layout-align="center">
 
   <md-button hide-xs ng-click="hc.nawButton()"><h1>Naw</h1></md-button>
     <div class="card" layout="row" layout-xs="row" flex-sm="70" layout-align="center start" >
@@ -11,14 +11,14 @@
                 <!-- <ng-swippy collection='hc.dishes'  data='showinfo' collection-empty='swipeend' swipe-left='hc.nawButton()'  swipe-right='hc.yumButton()' cards-number='2' label-ok='Yum!' label-negative='Naw!'></ng-swippy> -->
                 <!-- md-swipe-right="hc.yumButton()" md-swipe-left="hc.nawButton()" -->
         </md-card-header>
-        <md-card-title class="card-title">
+        <md-card-title class="card-title" >
           <md-button  ng-class="{'starButton': hc.currentDish.favorite}" class="md-fab md-primary" aria-label="Favorite" ng-click="hc.addFavoriteButton()">
             <md-icon class="material-icons">star_border</md-icon>
           </md-button>
           <md-card-title-text layout="column" layout-align="center" >
             <div layout="column">
               <span id="dishTitle" class="md-headline">{{hc.currentDish.dishName}}</span>
-              <span class="md-subhead">{{hc.currentRestaurant.name}}</span>
+              <span class="md-subhead">{{hc.currentDish.currentRestaurant.name}}</span>
             </div>
             <div layout="row" layout-align="center">
               <md-button layout="row"  id="yumReviewButton" class="md-primary" ng-click="hc.yumReviewButton($event)" aria-label="Review Yums" md-ripple-size="full">

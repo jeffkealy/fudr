@@ -1,6 +1,6 @@
 node_modules/
 .idea/
-.DS_STORE/
+.DS_STORE
 .env
 teststuff/
 server/firebase-service-account.json

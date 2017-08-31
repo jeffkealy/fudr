@@ -9,6 +9,7 @@ app.controller('MenuController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataF
       targetEvent: ev,
       clickOutsideToClose:true,
       fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+
     });
   }
 
@@ -21,8 +22,12 @@ app.controller('MenuController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataF
       clickOutsideToClose:true,
       fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
     });
+    $mdBottomSheet.hide();
+
   }
+  self.closeMenu = function(){
+    $mdBottomSheet.hide();
 
-
+  }
 
 }]);

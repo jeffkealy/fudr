@@ -1,4 +1,4 @@
-app.controller('FilterpopupController', ['$mdDialog', 'DataFactory', function($mdDialog, DataFactory){
+app.controller('FilterpopupController', ['$mdDialog', 'DataFactory','FoodFactory', '$scope', '$rootScope','$mdBottomSheet',   function($mdDialog, DataFactory, FoodFactory, $scope, $rootScope, $mdBottomSheet){
   var self = this;
   self.currentDish = DataFactory.currentDish
   self.selected = DataFactory.cuisineTypesSelected;
@@ -57,4 +57,16 @@ app.controller('FilterpopupController', ['$mdDialog', 'DataFactory', function($m
 
         });
   }
+  $scope.childmethod = function(){
+    console.log("childmethod");
+    $rootScope.$broadcast("callParentMethod", {});
+  }
+  //clicking the Ok button on the filter popup
+  self.okButton = function() {
+    console.log("Filter OK Clicked");
+    $mdDialog.hide({});
+    $scope.childmethod();
+
+  };
+
 }]);

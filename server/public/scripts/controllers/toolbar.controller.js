@@ -1,4 +1,4 @@
-app.controller('ToolbarController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataFactory', '$firebaseAuth', function($http, $mdDialog, $mdBottomSheet, DataFactory, $firebaseAuth){
+app.controller('ToolbarController', ['$http', '$mdDialog', "$mdBottomSheet", 'DataFactory', '$firebaseAuth', 'FoodFactory', function($http, $mdDialog, $mdBottomSheet, DataFactory, $firebaseAuth, FoodFactory){
   var self = this;
   self.firebaseUserName = DataFactory.firebaseUserName
   self.cuisineTypes = DataFactory.cuisineTypesSelected;
@@ -9,10 +9,9 @@ app.controller('ToolbarController', ['$http', '$mdDialog', "$mdBottomSheet", 'Da
     $mdBottomSheet.show({
       templateUrl: "../../views/templates/popups/menu.html",
       controller: 'MenuController as mc',
-      parent: angular.element(document.body),
-      clickOutsideToClose: true
-    }).then(function(){
-      DataFactory.getRandomDish();
+      // parent: angular.element(document.getElementById('homeContainter')),
+      clickOutsideToClose: true,
+      disableParentScroll: true
     });
   }
 
